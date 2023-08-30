@@ -1,0 +1,88 @@
+:root {
+    --primary: #5e35b1;
+    --primary-hover: #88B135;
+}
+
+.task-container, .subtask-container {
+    margin: 0 0 25px 0;
+    padding: 25px 25px 5px 25px;
+}
+
+button {
+    max-height: 56px;
+    align-self: center;
+}
+
+main {
+    padding-top: 0!important;
+}
+
+dialog article {
+    width: 95%;
+    height: 95%;
+    max-width: 95%;
+    max-height: 95%;
+}
+
+dialog {
+    padding: 0;
+}
+
+.warning {
+    background-color: #CE102B;
+}
+.success {
+    background-color: #32B826;
+}
+.button-flex-center-width-65 {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    justify-self: right;
+    width: 65px
+}
+
+.flex-gap {
+    display: flex;
+    gap: 25px;
+    justify-content: flex-end;
+}
+
+.grow-1 {
+    flex-grow: 1;
+}
+
+nav li {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.between {
+    justify-content: space-between;
+}
+
+button {
+    max-width: 65px;
+}
+
+/** testowa samowolka
+p::before {
+        content: "";
+        background: white;
+        border-radius: 1ch;
+        padding-inline: 5px;
+        margin-inline-end: 5px;
+}
+**/
+
+.drag-icon {
+    font-size: 35px!important;
+}
+
+.task-text {
+    display: flex;
+}
+
+dialog article:not(.subtask-container) {
+    background-color: #10181E;
+}

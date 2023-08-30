@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <title>Test przeciągania elementów</title>
+
+        <style>
+            .container-1 {
+                width: 600px;
+                height: 540px;
+
+                margin: 25px auto;
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                justify-content: flex-start;
+                align-items: center;
+
+                gap: 10px;
+
+                border-radius: 5px;
+                padding: 5px;
+
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+            }
+
+            .item {
+                width: 350px;
+                height: 200px;
+                padding: 10px;
+
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px; }
+
+            .item:hover {
+                cursor: grab;
+            }
+
+            .swapped {
+                background-color: blue;
+            }
+
+            .dragged {
+                background-color: gray;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div class="container-1">
+            <div draggable="true" class="item item-1">
+                <h1>header</h1>
+                <p>1</p>
+            </div>
+            <div draggable="true" class="item item-2">
+                <p>2</p>
+                <h1>header2</h1>
+            </div>
+            <div draggable="true" class="item item-3">
+                <p>3</p>
+                <h1>header3</h1>
+            </div>
+        </div>
+    </body>
+
+    <footer>
+        <script>
+
+            const bodyData = document.querySelector("body");
+
+            if (localStorage.getItem("bodyData") !== null) {
+                bodyData.innerHTML = localStorage.getItem("bodyData");
+            }
+            const elements = {
+                fromContainer: document.querySelector(".container-1"),
+                toContainer: document.querySelector(".container-2"),
+                items: document.querySelectorAll(".item"),
+            }
+
+
+            let draggedElement = null;
+            let swapElement = null;
+
+            elements.items.forEach(item => {
+
+                item.addEventListener("dragstart", (e) => {
+                    draggedElement = item;
+
+                })
+
+                item.addEventListener("dragenter", (e) => {
+                    swapElement = item;
+
+                });
+
+                item.addEventListener("dragover", (e) => {
+                    e.preventDefault();
+                })
+
+                item.addEventListener("drop", (e) => {
+                    e.preventDefault();
+                    draggedElement.classList.remove("dragged");
+
+                    [swapElement.innerHTML, draggedElement.innerHTML] = [draggedElement.innerHTML, swapElement.innerHTML];
+
+                    localStorage.setItem("bodyData", bodyData.innerHTML);
+                })
+            })
+        </script>
+    </footer>
+</html>

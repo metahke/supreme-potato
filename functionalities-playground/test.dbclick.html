@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <!--<link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"
+    />-->
+    <style>
+        ::selection {
+            background-color: #b5a2c8;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        input {
+            height: 50px;
+            width: 500px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="description-container">
+        <p class="description">Click on me, then click outside of me or click 'Enter'</p>
+    </div>
+</body>
+
+<script>
+
+    function listenerToP(container) {
+        const mainContainer = document.querySelector(container);
+        const paragraph = mainContainer.querySelector("p");
+
+        paragraph.addEventListener("click", () => {
+
+            mainContainer.innerHTML = `
+            <input class="description" type="text" value="${paragraph.textContent}" />
+        `
+
+            return listenerToI(container)
+        })
+    }
+
+    function listenerToI(container) {
+
+        const mainContainer = document.querySelector(container);
+        const input = mainContainer.querySelector("input");
+
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+
+                const inputValue = input.value;
+
+                mainContainer.innerHTML = `
+                <p class="description"></p>
+            `
+
+                document.querySelector(".description").textContent = inputValue;
+                return listenerToP(container);
+            }
+        })
+
+        document.addEventListener("click", (e) => {
+
+            if (e.target === document.querySelector("html") && input !== null) {
+
+                const inputValue = input.value;
+
+                mainContainer.innerHTML = `
+                <p class="description"></p>
+            `
+                document.querySelector(".description").textContent = inputValue
+
+                return listenerToP(container);
+            }
+        })
+
+    }
+
+    listenerToP(".description-container")
+
+</script>
+</html>

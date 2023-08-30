@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <title>Test przeciągania elementów</title>
+
+        <style>
+            .container-1, .container-2  {
+                background-color: black;
+                width: 600px;
+                height: 240px;
+
+                margin: 25px 0;
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                justify-content: flex-start;
+                align-items: center;
+
+                gap: 10px;
+
+                border-radius: 5px;
+                padding: 5px;
+            }
+
+            .item {
+                background-color: gray;
+                width: 350px;
+                height: 50px;
+                padding: 10px;
+            }
+            .item:hover {
+                cursor: grab;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container-1">
+            <div draggable="true" class="item">
+                <p>1</p>
+            </div>
+            <div draggable="true" class="item">
+                <p>2</p>
+            </div>
+            <div draggable="true" class="item">
+                <p>3</p>
+            </div>
+
+        </div>
+        <div class="container-2">
+
+        </div>
+    </body>
+
+    <footer>
+        <script>
+            const bodyData = document.querySelector("body");
+
+            if (localStorage.getItem("bodyData") !== null) {
+                bodyData.innerHTML = localStorage.getItem("bodyData");
+            }
+
+            const elements = {
+                fromContainer: document.querySelector(".container-1"),
+                toContainer: document.querySelector(".container-2"),
+                items: document.querySelectorAll(".item"),
+            }
+
+
+            let draggedElement = null;
+
+            elements.items.forEach(item => {
+
+                item.addEventListener("drag", (e) => {
+                    draggedElement = e.target;
+                });
+            })
+
+            elements.toContainer.addEventListener("dragenter", (e) => {
+                elements.toContainer.appendChild(draggedElement);
+                localStorage.setItem("bodyData", bodyData.innerHTML);
+            })
+
+            elements.fromContainer.addEventListener("dragenter", (e) => {
+                elements.fromContainer.appendChild(draggedElement);
+                localStorage.setItem("bodyData", bodyData.innerHTML);
+            })
+        </script>
+    </footer>
+</html>
