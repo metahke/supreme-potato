@@ -86,3 +86,11 @@ p::before {
 dialog article:not(.subtask-container) {
     background-color: #10181E;
 }
+
+.task:hover {
+    cursor: pointer;
+}
+
+.to-remove {
+    border: 5px solid pink;
+}

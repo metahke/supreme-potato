@@ -90,23 +90,6 @@ function createTaskComponent() {
                     </span>
                     <p class="grow-1">${getTaskInputData()}</p>
                 </div>
-            <div class="flex-gap">
-                    <button class="open-task-button button contrast">
-                        <span class="material-symbols-outlined">
-                            open_in_new
-                        </span>
-                    </button>
-                <button class="edit-task-button button secondary" data-is-edited="false">
-                    <span class="material-symbols-outlined">
-                            edit
-                    </span>
-                </button>
-                <button class="remove-task-button button success">
-                    <span class="material-symbols-outlined">
-                        done
-                    </span>
-                </button>
-                </div>
             </div>
             <dialog>
                 <article>
@@ -172,16 +155,42 @@ function createTaskComponent() {
         }
     })
 
-    taskContainer.querySelector(".open-task-button").addEventListener("click", () => {
+    /*taskContainer.querySelector(".open-task-button").addEventListener("click", () => {
         subtaskElements.modal.setAttribute("open", "true");
+    })*/
+
+
+
+
+
+
+
+
+    taskContainer.addEventListener("click", () => {
+        if (isPressed === false) {
+            subtaskElements.modal.setAttribute("open", "true");
+        }
     })
 
-    subtaskElements.closeModalButton.addEventListener("click", () => {
+    subtaskElements.closeModalButton.addEventListener("click", (e) => {
+        e.stopPropagation()
         subtaskElements.modal.removeAttribute("open");
-    })
+    });
 
-    makeTaskComponentEditable(taskContainer)
-    makeTaskComponentRemovable(taskContainer)
+
+
+
+
+    taskContainer.addEventListener("mousedown", (e) => {
+        press(taskContainer);
+    });
+    taskContainer.addEventListener("mouseup", (e) => {
+        cancel(taskContainer);
+    });
+
+
+   /* makeTaskComponentEditable(taskContainer)
+    makeTaskComponentRemovable(taskContainer)*/
 
     if (getTaskInputData() !== "") {
         elements.mainTasksContainer.append(taskContainer);
@@ -190,6 +199,32 @@ function createTaskComponent() {
     saveData();
     elements.taskInputField.value = null;
 }
+
+
+
+/** Ciekawa konwencja działania funkcjonalności **/
+/** !!!!!!!!!!! **/
+/** WYKORZYSTAĆ NA ZAZNACZANIE DO USUNIĘCIA **/
+let isPressed = false;
+
+const press = (element) => {
+    isPressed = true;
+    console.log(isPressed);
+    setTimeout(() => {
+        markElementToRemoval(element);
+    }, 500);
+}
+const cancel = () => {
+    isPressed = false;
+}
+const markElementToRemoval = (element) => {
+
+    if (isPressed) {
+        element.classList.add("to-remove");
+    }
+}
+/** END **/
+
 
 
 // To do przejrzenia, może pójdzie jakoś oczyścić... może podzielić?
@@ -221,8 +256,8 @@ function createSubtaskComponent(subtaskInput, subtasks) {
         </article>
     `;
 
-    makeTaskComponentEditable(subtaskContainer);
-    makeTaskComponentRemovable(subtaskContainer);
+    /*makeTaskComponentEditable(subtaskContainer);
+    makeTaskComponentRemovable(subtaskContainer);*/
 
 
 
@@ -274,13 +309,25 @@ function openTaskListener() {
 
     const tasks = elements.mainTasksContainer.querySelectorAll(".task");
 
-    tasks.forEach(task => task.querySelector(".open-task-button").addEventListener("click", () => {
+    tasks.forEach(task => {
 
         const modal = task.querySelector("dialog");
 
-        modal.setAttribute("open", "true");
+        task.addEventListener("click", () => {
+            modal.setAttribute("open", "true");
+        })
 
-    }))
+        /*task.addEventListener("mousedown", () => {
+
+            const modal = task.querySelector("dialog");
+
+            press(modal);
+        });
+
+        task.addEventListener("mouseup", () => {
+            cancel();
+        })*/
+    });
 }
 
 openTaskListener()
@@ -289,8 +336,9 @@ function closeSubtaskModalListener() {
 
     const taskDialogs = elements.mainTasksContainer.querySelectorAll(".task dialog");
 
-    taskDialogs.forEach(taskDialog => taskDialog.querySelector(".close").addEventListener("click", () => {
+    taskDialogs.forEach(taskDialog => taskDialog.querySelector(".close").addEventListener("click", (e) => {
 
+        e.stopPropagation();
         taskDialog.removeAttribute("open");
         saveData();
     }));
@@ -371,8 +419,11 @@ function makeTaskComponentRemovable(taskElement) {
 
     taskElement.querySelector(".remove-task-button").addEventListener("click", () => {
 
-            taskElement.remove();
-            saveData();
+            document.querySelectorAll(".to-remove").forEach(element => {
+
+                element.remove();
+                saveData();
+            })
         })
 }
 
@@ -382,8 +433,8 @@ function makeTaskComponentsFunctional() {
 
     taskElements.forEach(taskElement => {
 
-        makeTaskComponentEditable(taskElement)
-        makeTaskComponentRemovable(taskElement)
+       /* makeTaskComponentEditable(taskElement)
+        makeTaskComponentRemovable(taskElement)*/
 
     })
 }

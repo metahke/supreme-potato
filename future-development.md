@@ -18,6 +18,10 @@ a
 
 ## Done
 
+### 30.08.2023
+
+- projekt dodany do nowego repozytorium, uporządkowane pliki, utworzony nowy *branch* oraz wersja aplikacji (pre-release). Rozpoczęte prace nad nowym, ulepszonym designem.
+
 ### 29.08.2023
 
 - zaimplementowany prosty mechanizm potwierdzenia wyczyszczenia całej listy zadań,
