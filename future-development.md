@@ -18,6 +18,10 @@ a
 
 ## Done
 
+### 31.08.2023
+
+- poprawiona funkcjonalność otwierania tasków i zamykania ich oraz zaznaczania / odznaczania. DO POPRAWY CZYSTOŚĆ KODU.
+
 ### 30.08.2023
 
 - projekt dodany do nowego repozytorium, uporządkowane pliki, utworzony nowy *branch* oraz wersja aplikacji (pre-release). Rozpoczęte prace nad nowym, ulepszonym designem.

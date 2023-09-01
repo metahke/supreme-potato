@@ -87,10 +87,28 @@ dialog article:not(.subtask-container) {
     background-color: #10181E;
 }
 
-.task:hover {
+.task .task-container:hover {
     cursor: pointer;
+    /*scale: 1.01;*/
+    background-color:  #2A333A;
 }
 
-.to-remove {
-    border: 5px solid pink;
+dialog {
+    cursor: default;
+}
+
+.to-remove .task-container, .to-remove .subtask-container {
+    border: 1px solid white;
+    background-color: #2A333A;
+}
+
+dialog article p:last-of-type {
+    margin-bottom: 24px;
+}
+
+p::before {
+    content: '\25A0';
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 12px;
 }
