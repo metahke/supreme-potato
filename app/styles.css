@@ -3,6 +3,11 @@
     --primary-hover: #88B135;
 }
 
+::selection {
+    background-color: var(--primary);
+    color: white;
+}
+
 .task-container, .subtask-container {
     margin: 0 0 25px 0;
     padding: 25px 25px 5px 25px;
@@ -77,6 +82,7 @@ p::before {
 
 .drag-icon {
     font-size: 35px!important;
+    cursor: grab;
 }
 
 .task-text {
@@ -91,6 +97,10 @@ dialog article:not(.subtask-container) {
     cursor: pointer;
     /*scale: 1.01;*/
     background-color:  #2A333A;
+}
+
+.subtask-container {
+    cursor: pointer;
 }
 
 dialog {
@@ -111,4 +121,29 @@ p::before {
     display: inline-block;
     margin-right: 8px;
     font-size: 12px;
+}
+
+
+
+.tasks {
+    column-count: 2;
+    column-gap: 20px;
+}
+
+.task {
+    break-inside: avoid;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+small {
+    display: block;
+}
+
+.left {
+    text-align: left;
+}
+
+.center {
+    text-align: center;
 }

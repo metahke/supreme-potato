@@ -101,11 +101,12 @@ function createTaskComponent() {
             </div>
             <dialog>
                 <article>
+                <small class="left"><mark>double click on text to edit & hold on item to mark for deletion</mark></small>
                     <button
                        class="close contrast">
                     </button>
-                    <h3 class="task-title">${getTaskInputData()}</h3>                 
-                    <blockquote class="description">
+                    <h3 class="task-title editable">${getTaskInputData()}</h3>                 
+                    <blockquote class="description editable">
                         Chciałbym...
                     </blockquote>
                     <div class="flex-gap">
@@ -121,7 +122,6 @@ function createTaskComponent() {
                             </span>
                         </button>
                     </div>
-                    
                     <div class="subtasks">
                     
                     </div>
@@ -158,6 +158,7 @@ function createTaskComponent() {
     closeTaskListener(taskContainer);
     checkTaskListener(taskContainer);
     makeSubtaskListCleanable(taskContainer);
+    editTextsInTasks(taskContainer);
 
     if (getTaskInputData() !== "") {
         elements.mainTasksContainer.append(taskContainer);
@@ -179,7 +180,10 @@ function createSubtaskComponent(subtaskInput, subtasks) {
     subtaskContainer.innerHTML = `
         <article class="article subtask-container">
             <div class="flex-gap">
-                    <p class="subtask-title grow-1">${subtaskInput.value}</p>
+                    <p class="subtask-title grow-1 editable">${subtaskInput.value}</p>
+                    <span class="drag-icon material-symbols-outlined">
+                        drag_indicator
+                    </span>
             </div>
         </article>
     `;
@@ -190,7 +194,9 @@ function createSubtaskComponent(subtaskInput, subtasks) {
         saveData();
     }
 
+    stopPropagationOnDragIcon(subtaskContainer);
     checkSubtaskListener(subtaskContainer);
+    editTextsInTasks(subtaskContainer);
 
 }
 
@@ -243,7 +249,7 @@ function checkTaskListener(task) {
                     task.classList.add("to-remove");
                 }
             }
-        }, 200);
+        }, 75);
     });
 
     task.addEventListener("mouseup", () => {
@@ -289,7 +295,7 @@ function checkSubtaskListener(subtask) {
                     subtask.classList.add("to-remove");
                 }
             }
-        }, 200);
+        }, 75);
     });
 
     subtask.addEventListener("mouseup", () => {
@@ -329,12 +335,14 @@ function addInitialTaskAndSubtaskListeners() {
         closeTaskListener(task);
 
         makeSubtaskListCleanable(task);
+        editTextsInTasks(task);
 
         const subtasks = task.querySelectorAll(".subtask");
 
         subtasks.forEach(subtask => {
 
             checkSubtaskListener(subtask);
+            stopPropagationOnDragIcon(subtask);
         })
     })
 
@@ -349,10 +357,58 @@ addInitialTaskAndSubtaskListeners();
 
 
 
+function editTextsInTasks(task) {
 
+    return changeTextToInput(task);
+}
 
+function changeTextToInput(task) {
 
+    const texts = task.querySelectorAll(".editable");
 
+    texts.forEach(text => {
+
+        text.addEventListener("dblclick", () => {
+
+            if (text.querySelector("input") === null) {
+
+                text.innerHTML = `<input value="${text.innerText}">`;
+
+                changeInputToText(text);
+            }
+        });
+    });
+}
+
+function changeInputToText(text) {
+
+    const input = text.querySelector("input");
+
+    input.addEventListener("keydown", (e) => {
+
+        if (e.key === "Enter") {
+
+            const inputValue = input.value;
+
+            text.innerHTML = `${inputValue}`;
+            saveData();
+        }
+    });
+
+    document.querySelector("html").addEventListener("click", (e) => {
+
+        if (!e.target.classList.contains("editable")) {
+
+            text.innerHTML = input.value;
+            saveData();
+        }
+    });
+
+    input.addEventListener("click", (e) => {
+
+        e.stopPropagation();
+    });
+}
 
 
 
@@ -423,7 +479,8 @@ const subtasksDragArea = document.querySelectorAll(".subtasks");
 subtasksDragArea.forEach(subtaskElement => {
     new Sortable(subtaskElement, {
         animation: 175,
-        onEnd: saveData
+        onEnd: saveData,
+        handle: ".drag-icon"
     })
 })
 /** END **/
