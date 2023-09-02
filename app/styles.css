@@ -147,3 +147,11 @@ small {
 .center {
     text-align: center;
 }
+
+header {
+    padding-top: 50px!important;
+}
+
+hgroup {
+    padding-bottom: 50px;
+}

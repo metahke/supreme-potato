@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html data-theme="dark" lang="pl">
     <head>
+        <title>Supreme Pomodoro</title>
         <meta charset="UTF-8" />
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
-        <script src="./script.js" defer></script>
+        <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
 
-        <title>Simple To Do App</title>
+        <script type="module" src="scripts/taskAndSubtasksFunctionalities.js" defer></script>
+        <script type="module" src="scripts/main.js" defer></script>
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
@@ -17,9 +19,13 @@
     </head>
     <body class="container">
         <header>
+            <hgroup class="center">
+                <h1>Supreme Pomodoro</h1>
+                <h2><kbd>your badass productivity app</kbd></h2>
+            </hgroup>
             <div class="add-task-container">
                 <div class="flex-gap">
-                    <input class="task-input-field" data-theme="dark" placeholder="" />
+                    <input class="task-input-field" data-theme="dark" placeholder="Dodaj nowy projekt..." />
                     <button class="add-task-button button-flex-center-width-65">
                         <span class="material-symbols-outlined">
                             add
