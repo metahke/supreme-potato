@@ -1,8 +1,3 @@
-import {
-    stopPropagationOnDragIcon,
-    editTextsInTasks,
-} from './taskAndSubtasksFunctionalities.js';
-
 const elements = {
     addTaskButton: document.querySelector(".add-task-button"),
     editTasksButton: document.querySelector(".edit-tasks-button"),
@@ -62,6 +57,76 @@ const clearTasksListEventListener = () => {
         }
     });
 }
+
+
+
+
+
+function stopPropagationOnDragIcon(task) {
+
+    task.querySelector(".drag-icon").addEventListener("click", (e) => {
+        e.stopPropagation();
+    });
+
+    task.querySelector(".drag-icon").addEventListener("mousedown", (e) => {
+        e.stopPropagation();
+    });
+}
+
+function editTextsInTasks(task) {
+
+    return changeTextToInput(task);
+}
+
+function changeTextToInput(task) {
+
+    const texts = task.querySelectorAll(".editable");
+
+    texts.forEach(text => {
+
+        text.addEventListener("dblclick", () => {
+
+            if (text.querySelector("input") === null) {
+
+                text.innerHTML = `<input value="${text.innerText}">`;
+
+                changeInputToText(text);
+            }
+        });
+    });
+}
+
+function changeInputToText(text) {
+
+    const input = text.querySelector("input");
+
+    input.addEventListener("keydown", (e) => {
+
+        if (e.key === "Enter") {
+
+            const inputValue = input.value;
+
+            text.innerHTML = `${inputValue}`;
+            saveData();
+        }
+    });
+
+    document.querySelector("html").addEventListener("click", (e) => {
+
+        if (!e.target.classList.contains("editable")) {
+
+            text.innerHTML = input.value;
+            saveData();
+        }
+    });
+
+    input.addEventListener("click", (e) => {
+        e.stopPropagation();
+    });
+}
+
+
+
 
 
 
@@ -199,7 +264,7 @@ function createTaskComponent() {
             <div class="grid mobile-column">
                 <div class="task-text">
                     <p class="grow-1">${getTaskInputData()}</p>
-                    <span class="drag-icon material-symbols-outlined">
+                    <span class="drag-icon material-icons">
                         drag_indicator
                     </span>
                 </div>
@@ -217,13 +282,13 @@ function createTaskComponent() {
                     <div class="flex row gap">
                         <input class="subtask-input-field" placeholder="Dodaj nowe zadanie..." />
                         <button class="add-subtask-button">
-                            <span class="material-symbols-outlined">
+                            <span class="material-icons">
                                 add
                             </span>
                         </button>
                         <button class="clear-subtasks-data warning">
-                            <span class="material-symbols-outlined">
-                                delete
+                            <span class="material-icons">
+                                delete_outline
                             </span>
                         </button>
                     </div>
@@ -257,7 +322,7 @@ export function createSubtaskComponent(subtaskInput, subtasks) {
         <article class="article subtask-container">
             <div class="flex row gap">
                     <p class="subtask-title grow-1 editable">${subtaskInput.value}</p>
-                    <span class="drag-icon material-symbols-outlined">
+                    <span class="drag-icon material-icons">
                         drag_indicator
                     </span>
             </div>

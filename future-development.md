@@ -1,14 +1,17 @@
 # Przyszłe zmiany i pomysły
-a
-- Aktualnie funkcjonalność jest zduplikowana na taski i subtaski. Mają one takie same struktury, które można ujednolicić!
-- wyśrodkować przycisk z ikonkę kosza na stronie głównej,
-- pobrać ikonki do osobnego folderu lub podmienić na link https://fonts.coollabs.io/,
+
+- Aktualnie funkcjonalność jest zduplikowana na taski i subtaski. Mają one takie same struktury, które można ujednolicić! (?)
 - poprawić (usunąć jeśli można, zamienić) style tak, by współgrały z pico css
 - Po wykonaniu zadania przekreślić tekst i umieścić zadanie gdzieś na samym dole/ (np. po lewej stronie zadania dodać checkbox z możliwością zaznaczenia zadania jako zrobione)
-- usunąć ikonkę pozwalającą na edycję zadania i zamiast tego dodać funkcję dblclick na tekst by rozpocząć edtycję zadania?
 - utworzenie przycisku export / import
 
 + te z rm2
+
+## Ideas
+
+- Można, by zrobić jeszcze fajniejszy podział w stylu: elements.button.addTask
+- Można by dodać zamiast innerHTML textContent w celu wyeliminowania możliwości wprowadzenia, np. elementu html,
+
 
 ## Dalsze
 
@@ -16,7 +19,13 @@ a
 - dodać zakładki między, którymi będzie można się przełączać,
 - dodanie zawsze dostępnej sekcji "Daily / Dzisiaj" na pojedyczne zadania, które nie są projektami, a są do wykonania "na już"
 
+
+
 ## Done
+
+### 13.09.2023
+- podmienić na link ikonek na prywatny: https://fonts.coollabs.io/,
+
 
 ### 31.08.2023
 
@@ -37,6 +46,12 @@ a
 - Dodać przycisk pozwalający na usunięcie wybranego zadania z listy,
 - Dodać przycisk pozwalający na edycję wybranego zadania z listy,
 - sprawdzić, w jaki sposób zapisać listę w pamięci .localStorage, tak by po odświeżeniu strony zadania nadal były dostępne,
+
+## Przemyślenia
+
+- chatgpt pomgógł mi tu rozwiązać jeden problem wynikający z tym, że podczas długiego kliku i usunięciu klasy "to-remove" zadanie od razu się otwierało,
+- Zdecydowałem się na wprowadzenie przycisku edycji tasków na stronie głównej, ponieważ longclick oraz click mieszały się ze sobą i razem tworzyły dość skomplikowany system, który trzeba było obsługiwać z pomocą wielu zmiennych state,
+
 
 ---
 https://picocss.com/third-party/

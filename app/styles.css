@@ -33,6 +33,14 @@ dialog {
     padding: 0;
 }
 
+.primary {
+    background-color: var(--primary);
+}
+
+.primary:hover {
+    background-color: var(--primary-hover);
+}
+
 .warning {
     background-color: #CE102B;
 }
@@ -53,6 +61,7 @@ dialog {
 
 .row {
     flex-direction: row;
+    align-items: center;
 }
 
 .gap {
@@ -190,4 +199,13 @@ hgroup {
 
 .clear-subtask-button * {
     pointer-events: none;
+}
+
+mark {
+    background-color: #d1c284;
+    color: black;
+}
+
+input:not([type="checkbox"], [type="radio"]), select, textarea {
+    margin-bottom: 0;
 }
