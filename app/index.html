@@ -39,11 +39,18 @@
             <section>
                 <div class="flex-gap between">
                     <h2>Lista projektów</h2>
-                    <button class="clear-tasks-data warning button-flex-center-width-65">
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </button>
+                    <div class="btn-group">
+                        <button class="edit-tasks-button secondary button-flex-center-width-65" data-edit-mode="false">
+                            <span class="material-symbols-outlined">
+                                edit
+                            </span>
+                        </button>
+                        <button class="clear-tasks-data warning button-flex-center-width-65">
+                            <span class="material-symbols-outlined">
+                                delete
+                            </span>
+                        </button>
+                    </div>
                 </div>
                 <div class="tasks"></div>
             </section>

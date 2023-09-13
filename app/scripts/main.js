@@ -1,16 +1,15 @@
 import {
     stopPropagationOnDragIcon,
     openTaskListener,
-    checkTaskListener,
     closeTaskListener,
     addSubtaskButtonListener,
     makeSubtaskListCleanable,
     editTextsInTasks,
-    checkSubtaskListener,
 } from './taskAndSubtasksFunctionalities.js';
 
 const elements = {
     addTaskButton: document.querySelector(".add-task-button"),
+    editTasksButton: document.querySelector(".edit-tasks-button"),
     taskInputField: document.querySelector(".task-input-field"),
     mainTasksContainer: document.querySelector(".tasks"),
     clearTasksButton: document.querySelector(".clear-tasks-data")
@@ -32,17 +31,15 @@ function loadDataFromLocalStorage() {
     }
 }
 
-
 export function saveData() {
     localStorage.setItem("tasksData", elements.mainTasksContainer.innerHTML);
 }
 
-function getTaskInputData() {
+const getTaskInputData = () => {
     return elements.taskInputField.value;
 }
 
-
-function addInitialEventListeners() {
+const addTaskEventListeners = () => {
 
     elements.addTaskButton.addEventListener("click", createTaskComponent);
 
@@ -52,6 +49,9 @@ function addInitialEventListeners() {
         }
     });
 
+}
+
+const clearTasksListEventListener = () => {
     elements.clearTasksButton.addEventListener("click", () => {
 
         if(confirm("Czy jesteś pewien?")) {
@@ -65,6 +65,81 @@ function addInitialEventListeners() {
     });
 }
 
+const editTasksButtonEventListener = () => {
+
+    elements.editTasksButton.addEventListener("click", () => {
+
+        if (elements.editTasksButton.dataset.editMode === "false") {
+            elements.editTasksButton.dataset.editMode = "true";
+            editTasksModeOn();
+        } else {
+            elements.editTasksButton.dataset.editMode = "false";
+            editTasksModeOff();
+        }
+
+    });
+}
+
+function addInitialEventListeners() {
+
+    addTaskEventListeners();
+    clearTasksListEventListener();
+    editTasksButtonEventListener();
+
+
+
+    /** NEW!!!  --> ONE EVENT LISTENER WITH SWITCH instead of A LOT OF LISTENERS **/
+
+    elements.mainTasksContainer.addEventListener("click", (e) => {
+
+        console.log(e.target);
+
+        switch (e.target.className) {
+
+            case "task-container":
+                e.target.querySelector("dialog").setAttribute("open", "true");
+                break;
+
+            case "close contrast":
+                //dialog
+                e.target.parentNode.parentNode.removeAttribute("open")
+        }
+    })
+}
+
+const toggleEditClass = (task) => {
+
+    task.classList.toggle("to-remove");
+};
+
+function editTasksModeOn() {
+
+    elements.editTasksButton.querySelector("span").textContent = "thumb_up";
+
+    const tasks = document.querySelectorAll(".task");
+
+    tasks.forEach(task => {
+
+        task.addEventListener("click", () => {
+            task.classList.toggle("to-remove");
+        })
+    });
+}
+
+function editTasksModeOff() {
+
+    elements.editTasksButton.querySelector("span").textContent = "edit";
+
+    const tasks = document.querySelectorAll(".task");
+
+    tasks.forEach(task => {
+
+        task.removeEventListener("click", () => {
+            task.classList.toggle("to-remove");
+        })
+    });
+
+}
 
 function createTaskComponent() {
 
@@ -117,7 +192,6 @@ function createTaskComponent() {
     stopPropagationOnDragIcon(taskContainer);
     openTaskListener(taskContainer);
     closeTaskListener(taskContainer);
-    checkTaskListener(taskContainer);
     makeSubtaskListCleanable(taskContainer);
     editTextsInTasks(taskContainer);
     addSubtaskButtonListener(taskContainer);
@@ -153,7 +227,6 @@ export function createSubtaskComponent(subtaskInput, subtasks) {
     }
 
     stopPropagationOnDragIcon(subtaskContainer);
-    checkSubtaskListener(subtaskContainer);
     editTextsInTasks(subtaskContainer);
 
 }
@@ -169,7 +242,6 @@ function addInitialTaskAndSubtaskListeners() {
         stopPropagationOnDragIcon(task);
 
         openTaskListener(task);
-        checkTaskListener(task);
         closeTaskListener(task);
 
         addSubtaskButtonListener(task);
@@ -181,7 +253,6 @@ function addInitialTaskAndSubtaskListeners() {
 
         subtasks.forEach(subtask => {
 
-            checkSubtaskListener(subtask);
             stopPropagationOnDragIcon(subtask);
         })
     })
@@ -216,7 +287,7 @@ function initializeBuild() {
 
     loadDataFromLocalStorage();
     addInitialEventListeners();
-    addInitialTaskAndSubtaskListeners();
+    //addInitialTaskAndSubtaskListeners();
     addDragAndDropFunctionalities();
 }
 

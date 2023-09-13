@@ -8,3 +8,7 @@
 /** Wystarczy wrzucić dla pojedynczego zadania, nie dla każdego kontenera z osobna **/
 
 // Można, by zrobić jeszcze fajniejszy podział w stylu: elements.button.addTask :-)
+
+---
+
+-> zdecydowałem się na wprowadzenie przycisku edycji tasków na stronie głównej, ponieważ longclick oraz click mieszały się ze sobą i razem tworzyły dość skomplikowany system, który trzeba było obsługiwać z pomocą wielu zmiennych state.

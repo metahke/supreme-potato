@@ -110,6 +110,15 @@ dialog {
 .to-remove .task-container, .to-remove .subtask-container {
     border: 1px solid white;
     background-color: #2A333A;
+    animation: shake-animation 1s infinite
+}
+
+@keyframes shake-animation {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
 }
 
 dialog article p:last-of-type {
@@ -154,4 +163,13 @@ header {
 
 hgroup {
     padding-bottom: 50px;
+}
+
+.btn-group {
+    column-count: 2;
+}
+
+
+.task-container .grid {
+    pointer-events: none;
 }
