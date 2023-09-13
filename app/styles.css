@@ -39,7 +39,7 @@ dialog {
 .success {
     background-color: #32B826;
 }
-.button-flex-center-width-65 {
+.icon {
     align-items: center;
     display: flex;
     justify-content: center;
@@ -47,10 +47,16 @@ dialog {
     width: 65px
 }
 
-.flex-gap {
+.flex {
     display: flex;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.gap {
     gap: 25px;
-    justify-content: flex-end;
 }
 
 .grow-1 {
@@ -171,5 +177,17 @@ hgroup {
 
 
 .task-container .grid {
+    pointer-events: none;
+}
+
+.add-subtask-button span {
+    pointer-events: none;
+}
+
+.subtask-container * {
+    pointer-events: none;
+}
+
+.clear-subtask-button * {
     pointer-events: none;
 }

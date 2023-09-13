@@ -1,9 +1,5 @@
 import {
     stopPropagationOnDragIcon,
-    openTaskListener,
-    closeTaskListener,
-    addSubtaskButtonListener,
-    makeSubtaskListCleanable,
     editTextsInTasks,
 } from './taskAndSubtasksFunctionalities.js';
 
@@ -59,15 +55,21 @@ const clearTasksListEventListener = () => {
             document.querySelectorAll(".to-remove").forEach(item => {
 
                 item.remove();
-                localStorage.removeItem("tasksData");
+                saveData();
             });
+
+            elements.editTasksButton.querySelector("span").textContent = "edit";
         }
     });
 }
 
+
+
 const editTasksButtonEventListener = () => {
 
     elements.editTasksButton.addEventListener("click", () => {
+
+        console.log(elements.editTasksButton.dataset.editMode);
 
         if (elements.editTasksButton.dataset.editMode === "false") {
             elements.editTasksButton.dataset.editMode = "true";
@@ -80,50 +82,9 @@ const editTasksButtonEventListener = () => {
     });
 }
 
-function addInitialEventListeners() {
-
-    addTaskEventListeners();
-    clearTasksListEventListener();
-    editTasksButtonEventListener();
-
-
-
-    /** NEW!!!  --> ONE EVENT LISTENER WITH SWITCH instead of A LOT OF LISTENERS **/
-
-    elements.mainTasksContainer.addEventListener("click", (e) => {
-
-        console.log(e.target);
-
-        switch (e.target.className) {
-
-            case "task-container":
-                e.target.querySelector("dialog").setAttribute("open", "true");
-                break;
-
-            case "close contrast":
-                //dialog
-                e.target.parentNode.parentNode.removeAttribute("open")
-        }
-    })
-}
-
-const toggleEditClass = (task) => {
-
-    task.classList.toggle("to-remove");
-};
-
 function editTasksModeOn() {
 
     elements.editTasksButton.querySelector("span").textContent = "thumb_up";
-
-    const tasks = document.querySelectorAll(".task");
-
-    tasks.forEach(task => {
-
-        task.addEventListener("click", () => {
-            task.classList.toggle("to-remove");
-        })
-    });
 }
 
 function editTasksModeOff() {
@@ -134,12 +95,98 @@ function editTasksModeOff() {
 
     tasks.forEach(task => {
 
-        task.removeEventListener("click", () => {
-            task.classList.toggle("to-remove");
-        })
+        task.classList.remove("to-remove");
     });
 
+
+
 }
+
+
+function addInitialEventListeners() {
+
+    addTaskEventListeners();
+    clearTasksListEventListener();
+    editTasksButtonEventListener();
+}
+
+
+
+
+/** NEW!!!  --> ONE EVENT LISTENER WITH SWITCH instead of A LOT OF LISTENERS **/
+
+const tasks = document.querySelectorAll(".task");
+
+tasks.forEach(task => {
+
+    task.addEventListener("click", () => {
+        task.classList.toggle("to-remove");
+    })
+});
+
+elements.mainTasksContainer.addEventListener("click", (e) => {
+
+    let subtasks;
+
+    switch (e.target.className) {
+
+        case "task-container":
+
+            if (elements.editTasksButton.dataset.editMode === "false") {
+
+                console.log(e.target.closest(".task-element"))
+
+                e.target.querySelector("dialog").setAttribute("open", "true");
+            } else {
+
+                e.target.closest(".task-element").classList.toggle("to-remove");
+            }
+
+            break;
+
+        case "close contrast":
+            //dialog
+            e.target.closest("dialog").removeAttribute("open");
+            break;
+
+        case "add-subtask-button":
+
+            const subtaskInput = e.target.closest(".flex").querySelector(".subtask-input-field");
+            subtasks = e.target.closest("article").querySelector(".subtasks");
+            createSubtaskComponent(subtaskInput, subtasks);
+            break;
+
+        case "clear-subtasks-data warning":
+
+            subtasks = e.target.closest("article").querySelector(".subtasks");
+
+            if(confirm("Czy jesteś pewien?")) {
+                subtasks.querySelectorAll(".to-remove").forEach(subtask => {
+                    subtask.remove();
+                });
+            }
+
+            saveData();
+            break;
+    }
+});
+
+elements.mainTasksContainer.addEventListener("dblclick", (e) => {
+
+    console.log(e.target.className);
+    switch (e.target.className) {
+
+        case "article subtask-container":
+            e.target.closest(".subtask").classList.toggle("to-remove");
+            break;
+    }
+})
+
+const toggleEditClass = (task) => {
+
+    task.classList.toggle("to-remove");
+};
+
 
 function createTaskComponent() {
 
@@ -167,14 +214,14 @@ function createTaskComponent() {
                     <blockquote class="description editable">
                         
                     </blockquote>
-                    <div class="flex-gap">
+                    <div class="flex row gap">
                         <input class="subtask-input-field" placeholder="Dodaj nowe zadanie..." />
-                        <button class="add-subtask-button button-flex-center-width-65">
+                        <button class="add-subtask-button">
                             <span class="material-symbols-outlined">
                                 add
                             </span>
                         </button>
-                        <button class="clear-subtasks-data warning button-flex-center-width-65">
+                        <button class="clear-subtasks-data warning">
                             <span class="material-symbols-outlined">
                                 delete
                             </span>
@@ -190,11 +237,7 @@ function createTaskComponent() {
     `;
 
     stopPropagationOnDragIcon(taskContainer);
-    openTaskListener(taskContainer);
-    closeTaskListener(taskContainer);
-    makeSubtaskListCleanable(taskContainer);
     editTextsInTasks(taskContainer);
-    addSubtaskButtonListener(taskContainer);
 
     if (getTaskInputData() !== "") {
         elements.mainTasksContainer.append(taskContainer);
@@ -212,7 +255,7 @@ export function createSubtaskComponent(subtaskInput, subtasks) {
 
     subtaskContainer.innerHTML = `
         <article class="article subtask-container">
-            <div class="flex-gap">
+            <div class="flex row gap">
                     <p class="subtask-title grow-1 editable">${subtaskInput.value}</p>
                     <span class="drag-icon material-symbols-outlined">
                         drag_indicator
@@ -223,39 +266,12 @@ export function createSubtaskComponent(subtaskInput, subtasks) {
 
     if (subtaskInput.value !== "") {
         subtasks.append(subtaskContainer);
+        subtaskInput.value = null;
         saveData();
     }
 
     stopPropagationOnDragIcon(subtaskContainer);
     editTextsInTasks(subtaskContainer);
-
-}
-
-
-
-function addInitialTaskAndSubtaskListeners() {
-
-    const tasks = elements.mainTasksContainer.querySelectorAll(".task");
-
-    tasks.forEach(task => {
-
-        stopPropagationOnDragIcon(task);
-
-        openTaskListener(task);
-        closeTaskListener(task);
-
-        addSubtaskButtonListener(task);
-
-        makeSubtaskListCleanable(task);
-        editTextsInTasks(task);
-
-        const subtasks = task.querySelectorAll(".subtask");
-
-        subtasks.forEach(subtask => {
-
-            stopPropagationOnDragIcon(subtask);
-        })
-    })
 
 }
 
