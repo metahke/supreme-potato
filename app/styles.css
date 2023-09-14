@@ -209,3 +209,19 @@ mark {
 input:not([type="checkbox"], [type="radio"]), select, textarea {
     margin-bottom: 0;
 }
+
+
+.inactive *{
+    cursor: none;
+    pointer-events: none;
+
+    color: grey;
+}
+
+.workflow-item:hover {
+    background-color: var(--primary);
+}
+
+a {
+    text-decoration: none!important;
+}
