@@ -105,7 +105,7 @@ p::before {
 }
 
 dialog article:not(.subtask-container) {
-    background-color: #10181E;
+    background-color: #13171F;
 }
 
 .task .task-container:hover {
@@ -224,4 +224,12 @@ input:not([type="checkbox"], [type="radio"]), select, textarea {
 
 a {
     text-decoration: none!important;
+}
+
+.head-link:hover h1 {
+    color: #d1c284;
+}
+
+.head-link:hover kbd {
+    background-color: #d1c284;
 }

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="pl">
+<head>
+    <title>Supreme Pomodoro</title>
+    <meta charset="UTF-8" />
+
+    <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"
+    />
+
+    <script type="text/javascript" src="./index.js" defer></script>
+
+    <link rel="stylesheet" href="../styles.css">
+
+    <link href="https://api.fonts.coollabs.io/icon?family=Material+Icons" rel="stylesheet">
+
+
+</head>
+<body class="container">
+<header>
+    <a href="./">
+        <hgroup class="center head-link">
+            <h1>Supreme Pomodoro</h1>
+            <h2><kbd>your badass productivity app</kbd></h2>
+        </hgroup>
+    </a>
+    <small class="center"><mark>click on item to enter full-screen mode & hold on item to mark for deletion</mark></small>
+
+    <div class="inbox-item">
+        <article class="">
+            <h3>Inbox</h3>
+            <dialog>
+                <article>
+                    <button
+                            class="inbox-close close contrast">
+                    </button>
+
+                    <button class="edit-inbox-button secondary" data-edit-mode="false">
+                            <span class="material-icons">
+                                edit
+                            </span>
+                    </button>
+                    <p class="inbox-paragraph"></p>
+
+                </article>
+            </dialog>
+        </article>
+    </div>
+</header>
+<main>
+    <section>
+        <div class="flex gap between">
+            <h2>Czego potrzebujesz?</h2>
+        </div>
+
+        <div class="workflow-container grid">
+
+            <article class="">
+                <h3>Pile, Ważne</h3>
+            </article>
+
+            <article class="">
+                <h3>Pilne, Nie Ważne</h3>
+            </article>
+        </div>
+        <div class="workflow-container grid">
+
+            <article class="">
+                <h3>Ważne, Nie Pilne</h3>
+            </article>
+
+            <article class="">
+                <h3>Abyss</h3>
+            </article>
+
+        </div>
+    </section>
+</main>
+</body>
+</html>

@@ -162,9 +162,6 @@ function editTasksModeOff() {
 
         task.classList.remove("to-remove");
     });
-
-
-
 }
 
 
