@@ -233,3 +233,9 @@ a {
 .head-link:hover kbd {
     background-color: #d1c284;
 }
+
+
+.inbox-item .inbox-article:hover {
+    cursor: pointer;
+    background-color: var(--primary);
+}

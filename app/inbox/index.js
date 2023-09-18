@@ -1,20 +1,40 @@
 const elements = {
     inboxItem: document.querySelector(".inbox-item"),
+    inboxElements: document.querySelector(".inbox-elements"),
     inboxClose: document.querySelector(".inbox-close"),
     inboxTextarea: document.querySelector(".inbox-textarea"),
 
     editInboxButton: document.querySelector(".edit-inbox-button"),
 }
 
+const loadInboxData = () => {
+
+}
+
+const data = {
+    inbox: []
+};
+
 function loadDataFromLocalStorage() {
 
     if (localStorage.getItem("inboxData") !== null) {
-        elements.inboxTextarea.innerHTML = localStorage.getItem("inboxData");
+
+        const textAreaContent = JSON.parse(localStorage.getItem("inboxData"));
+
+        for (let line of textAreaContent) {
+            if (line !== "") {
+                document.querySelector(".inbox-paragraph").innerHTML += `<article><p>${line.replace("- ", "")}</p></article>`;
+
+            }
+        }
     }
 }
 
-function saveData() {
-    localStorage.setItem("inboxData", elements.mainTasksContainer.innerHTML);
+loadDataFromLocalStorage();
+
+
+function saveData(elements) {
+    localStorage.setItem("inboxData", JSON.stringify(elements));
 }
 
 elements.inboxItem.addEventListener("click", () => {
@@ -78,11 +98,6 @@ function editTasksModeOff() {
     /*document.querySelector(".inbox-paragraph").innerHTML = textAreaContent;*/
 
     elements.editInboxButton.querySelector("span").textContent = "edit";
-
-    const tasks = document.querySelectorAll(".task");
-
-    tasks.forEach(task => {
-
-        task.classList.remove("to-remove");
-    });
+    console.log(textAreaContent)
+    saveData(textAreaContent);
 }
