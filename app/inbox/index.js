@@ -7,35 +7,54 @@ const elements = {
     editInboxButton: document.querySelector(".edit-inbox-button"),
 }
 
+
+
+let appData = {
+    inbox: [],
+    urgentAndImportant: [],
+    urgentAndNotImportant: [],
+    notUrgentAndImportant: [],
+    notUrgentAndNotImportant: [],
+    abyss: [],
+};
+
 const loadInboxData = () => {
+
+    if (appData.inbox.length >= 1) {
+
+        for (let line of appData.inbox) {
+
+            document.querySelector(".inbox-elements").innerHTML += `<article><p>${line.replace("- ", "")}</p></article>`;
+        }
+    }
 
 }
 
-const data = {
-    inbox: []
-};
-
 function loadDataFromLocalStorage() {
 
-    if (localStorage.getItem("inboxData") !== null) {
+    if (localStorage.getItem("inboxData") === null) {
 
-        const textAreaContent = JSON.parse(localStorage.getItem("inboxData"));
-
-        for (let line of textAreaContent) {
-            if (line !== "") {
-                document.querySelector(".inbox-paragraph").innerHTML += `<article><p>${line.replace("- ", "")}</p></article>`;
-
-            }
-        }
+        return localStorage.setItem("inboxData", JSON.stringify(appData));
     }
+
+    appData = JSON.parse(localStorage.getItem("inboxData"));
+
+
+    loadInboxData();
 }
 
 loadDataFromLocalStorage();
 
 
-function saveData(elements) {
-    localStorage.setItem("inboxData", JSON.stringify(elements));
+
+function saveData() {
+    console.log(localStorage.getItem("inboxData"));
+    console.log(JSON.stringify(appData));
+
+    localStorage.setItem("inboxData", JSON.stringify(appData));
 }
+
+
 
 elements.inboxItem.addEventListener("click", () => {
     elements.inboxItem.querySelector("dialog").setAttribute("open", "true");
@@ -65,11 +84,13 @@ editTasksButtonEventListener();
 
 function editTasksModeOn() {
 
-    const paragraphContent = document.querySelectorAll(".inbox-paragraph article");
+    const paragraphContent = document.querySelectorAll(".inbox-elements article");
 
     let texts = [...paragraphContent].map(article => {
         return `- ${article.textContent}`;
     })
+    console.log(paragraphContent);
+    console.log(texts);
 
     document.querySelector(".inbox-paragraph").innerHTML = `
         <textarea style="height: 300px" class="inbox-textarea"></textarea>
@@ -87,9 +108,15 @@ function editTasksModeOff() {
     const textAreaContent = document.querySelector(".inbox-textarea").value.split("\n");
 
     document.querySelector(".inbox-paragraph").innerHTML = null;
+    document.querySelector(".inbox-elements").innerHTML = null;
+
+    appData.inbox = [];
 
     for (let line of textAreaContent) {
         if (line !== "") {
+
+            appData.inbox.push(line);
+
             document.querySelector(".inbox-paragraph").innerHTML += `<article><p>${line.replace("- ", "")}</p></article>`;
         }
     }
@@ -98,6 +125,6 @@ function editTasksModeOff() {
     /*document.querySelector(".inbox-paragraph").innerHTML = textAreaContent;*/
 
     elements.editInboxButton.querySelector("span").textContent = "edit";
-    console.log(textAreaContent)
-    saveData(textAreaContent);
+
+    saveData();
 }
