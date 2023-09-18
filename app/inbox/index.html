@@ -31,6 +31,34 @@
     </a>
     <small class="center"><mark>click on item to enter full-screen mode & hold on item to mark for deletion</mark></small>
 
+    <div class="add-inbox-container">
+        <div class="flex gap">
+            <input class="add-inbox-input-field" data-theme="dark" placeholder="Dodaj coś do inboxu..." />
+            <button class="add-to-inbox-button primary">
+                        <span class="material-icons">
+                            add
+                        </span>
+            </button>
+            <button class="clean-inbox-button button-text contrast">
+                        Uporządkuj
+            </button>
+        </div>
+    </div>
+
+    <div class="clean-inbox-container">
+        <dialog>
+            <article>
+                <button
+                        class="clean-close close contrast">
+                </button>
+
+                <div class="close-inbox-element">
+
+                </div>
+            </article>
+        </dialog>
+    </div>
+
     <div class="inbox-item">
         <article class="inbox-article">
             <h3>Inbox</h3>
@@ -45,7 +73,8 @@
                                 edit
                             </span>
                     </button>
-                    <p class="inbox-paragraph"></p>
+
+                    <div class="inbox-textarea-container"></div>
 
                     <div class="inbox-elements">
 

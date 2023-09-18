@@ -95,6 +95,9 @@ p::before {
 }
 **/
 
+.button-text {
+    max-width: none;
+}
 .drag-icon {
     font-size: 35px!important;
     cursor: grab;
