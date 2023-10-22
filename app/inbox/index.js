@@ -1,56 +1,48 @@
 const elements = {
+    lists: document.querySelectorAll(".list-element"),
+    list: {
+      button: {
+          close: document.querySelector(".list-close"),
+      },
+        items: document.querySelector(".list-elements"),
+      listContainer: document.querySelector(".list-container")
+    },
     inboxItem: document.querySelector(".inbox-item"),
-    inboxElements: document.querySelector(".inbox-elements"),
-    inboxClose: document.querySelector(".inbox-close"),
-    inboxTextarea: document.querySelector(".inbox-textarea"),
-
-    editInboxButton: document.querySelector(".edit-inbox-button"),
+    addToInboxButton: document.querySelector(".add-to-inbox-button"),
+    addToInboxInputField: document.querySelector(".add-inbox-input-field"),
+    editListButton: document.querySelector(".edit-list-button"),
+    unclutterInbox: {
+        openButton: document.querySelector(".unclutter-inbox-open-button"),
+        closeButton: document.querySelector(".unclutter-inbox-close-button"),
+        container: document.querySelector(".unclutter-inbox-container"),
+        randomItemContainer: document.querySelector(".random-item-container"),
+        moveItemButtonsGroup: document.querySelector(".move-item-buttons-group"),
+    }
 }
-
 
 
 let appData = {
     inbox: [],
-    urgentAndImportant: [],
-    urgentAndNotImportant: [],
-    notUrgentAndImportant: [],
-    notUrgentAndNotImportant: [],
-    abyss: [],
+    top10: [],
+    mid29: [],
+    abyss: []
 };
 
-const loadInboxData = () => {
 
-    if (appData.inbox.length >= 1) {
-
-        for (let line of appData.inbox) {
-
-            document.querySelector(".inbox-elements").innerHTML += `<article><p>${line.replace("- ", "")}</p></article>`;
-        }
-    }
-
-}
 
 function loadDataFromLocalStorage() {
 
-    if (localStorage.getItem("inboxData") === null) {
+    if (localStorage.getItem("appData") === null) {
 
-        return localStorage.setItem("inboxData", JSON.stringify(appData));
+        return localStorage.setItem("appData", JSON.stringify(appData));
     }
 
-    appData = JSON.parse(localStorage.getItem("inboxData"));
-
-
-    loadInboxData();
+    appData = JSON.parse(localStorage.getItem("appData"));
 }
 
-loadDataFromLocalStorage();
+const saveData = () => {
 
-
-function saveData() {
-    console.log(localStorage.getItem("inboxData"));
-    console.log(JSON.stringify(appData));
-
-    localStorage.setItem("inboxData", JSON.stringify(appData));
+    localStorage.setItem("appData", JSON.stringify(appData));
 }
 
 
@@ -59,149 +51,187 @@ function saveData() {
 
 function addToInboxListener() {
 
-    const addToInboxButton = document.querySelector(".add-to-inbox-button");
-    const addToInboxInputField = document.querySelector(".add-inbox-input-field");
+    elements.addToInboxButton.addEventListener("click", () => {
 
-    addToInboxButton.addEventListener("click", () => {
-
-        const inputValue = addToInboxInputField.value;
+        const inputValue = elements.addToInboxInputField.value;
 
         if (inputValue !== "") {
 
             appData.inbox.push(inputValue);
-
-            document.querySelector(".inbox-elements").innerHTML += `<article><p>${inputValue.replace("- ", "")}</p></article>`;
-
-            addToInboxInputField.value = null;
+            elements.addToInboxInputField.value = null;
             saveData();
         }
     })
 }
 
-addToInboxListener()
 
+const editTasksModeOn = () => {
 
+    const paragraphsContent = elements.list.items.querySelectorAll("article");
 
-
-
-function cleanInbox() {
-
-    const cleanInboxButton = document.querySelector(".clean-inbox-button");
-    const cleanInboxContainer = document.querySelector(".clean-inbox-container");
-    const closeCleanInboxDialogButton = document.querySelector(".clean-close");
-    const closeInboxElement = document.querySelector(".close-inbox-element");
-
-
-    cleanInboxButton.addEventListener("click", () => {
-
-        cleanInboxContainer.querySelector("dialog").setAttribute("open", "true");
-
-        const length = appData.inbox.length - 1;
-        const randomItem = appData.inbox[Math.round(Math.random() * length)];
-
-        closeInboxElement.innerHTML = `<article><p>${randomItem}</p></article>`
-    });
-
-    closeCleanInboxDialogButton.addEventListener("click", (e) => {
-        e.target.closest("dialog").removeAttribute("open")
+    let texts = [...paragraphsContent].map(article => {
+        return `- ${article.textContent}`;
     })
 
+    document.querySelector(".list-textarea-container").innerHTML = `
+        <textarea style="height: 300px" class="list-textarea"></textarea>
+    `;
 
+    if (paragraphsContent.length > 0) {
+        document.querySelector(".list-textarea").textContent = texts.join("\n");
+    }
 
+    elements.list.items.innerHTML = null;
+
+    elements.editListButton.querySelector("span").textContent = "thumb_up";
 }
 
-cleanInbox()
+const editTasksModeOff = () => {
 
+    const textAreaContent = document.querySelector(".list-textarea").value.split("\n");
 
+    document.querySelector(".list-textarea-container").innerHTML = null;
+    document.querySelector(".list-elements").innerHTML = null;
 
+    console.log(elements.list.listContainer.dataset.list)
+    if (elements.list.listContainer.dataset.list) {
 
+        appData[elements.list.listContainer.dataset.list] = [];
 
+        for (let line of textAreaContent) {
+            if (line !== "") {
 
+                appData[elements.list.listContainer.dataset.list].push(line.replace("- ", ""));
 
+                document.querySelector(".list-elements").innerHTML += `<article><p>${line.replace("- ", "")}</p></article>`;
+            }
+        }
+    }
 
+    elements.editListButton.querySelector("span").textContent = "edit";
+    saveData();
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-elements.inboxItem.addEventListener("click", () => {
-    elements.inboxItem.querySelector("dialog").setAttribute("open", "true");
-})
-
-elements.inboxClose.addEventListener("click", (e) => {
-    e.stopPropagation();
-    elements.inboxItem.querySelector("dialog").setAttribute("open", "false");
-})
 
 const editTasksButtonEventListener = () => {
 
-    elements.editInboxButton.addEventListener("click", () => {
+    elements.editListButton.addEventListener("click", () => {
 
-        if (elements.editInboxButton.dataset.editMode === "false") {
-            elements.editInboxButton.dataset.editMode = "true";
+        if (elements.editListButton.dataset.editMode === "false") {
+            elements.editListButton.dataset.editMode = "true";
             editTasksModeOn();
         } else {
-            elements.editInboxButton.dataset.editMode = "false";
+            elements.editListButton.dataset.editMode = "false";
             editTasksModeOff();
         }
 
     });
 }
 
-editTasksButtonEventListener();
 
-function editTasksModeOn() {
 
-    const paragraphContent = document.querySelectorAll(".inbox-elements article");
 
-    let texts = [...paragraphContent].map(article => {
-        return `- ${article.textContent}`;
-    })
+const addOpenListsFunctionalities = () => {
 
-    document.querySelector(".inbox-textarea-container").innerHTML = `
-        <textarea style="height: 300px" class="inbox-textarea"></textarea>
-    `;
+    elements.lists.forEach(list => {
 
-    if (paragraphContent.length >= 1) {
-        document.querySelector(".inbox-textarea").textContent = texts.join("\n");
-    }
+        list.addEventListener("click", () => {
 
-    document.querySelector(".inbox-elements").innerHTML = null;
+            elements.list.listContainer.open = "true";
 
-    elements.editInboxButton.querySelector("span").textContent = "thumb_up";
+            if (appData[list.dataset.list]) {
+
+                elements.list.listContainer.dataset.list = list.dataset.list;
+
+                appData[list.dataset.list].forEach(item => {
+
+                    elements.list.items.innerHTML += `<article><p>${item}</p></article>`;
+                })
+            }
+        });
+    });
 }
 
-function editTasksModeOff() {
+const addListDialogFunctionalities = () => {
 
-    const textAreaContent = document.querySelector(".inbox-textarea").value.split("\n");
+    elements.list.button.close.addEventListener("click", (e) => {
 
-    document.querySelector(".inbox-textarea-container").innerHTML = null;
-    document.querySelector(".inbox-elements").innerHTML = null;
+        e.target.closest("dialog").setAttribute("open", "false");
+        elements.list.items.innerHTML = "";
+    });
+}
 
-    appData.inbox = [];
 
-    for (let line of textAreaContent) {
-        if (line !== "") {
 
-            appData.inbox.push(line);
 
-            document.querySelector(".inbox-elements").innerHTML += `<article><p>${line.replace("- ", "")}</p></article>`;
+
+
+
+const unclutterInboxOpenButtonListener = () => {
+
+    elements.unclutterInbox.openButton.addEventListener("click", () => {
+
+        elements.unclutterInbox.container.querySelector("dialog").setAttribute("open", "true");
+
+        unclutterInboxGetRandomItem();
+    });
+}
+
+const unclutterInboxCloseButtonListener = () => {
+
+    elements.unclutterInbox.closeButton.addEventListener("click", (e) => {
+
+        e.target.closest("dialog").removeAttribute("open");
+    });
+}
+
+const unclutterInboxGetRandomItem = () => {
+
+    const length = appData.inbox.length - 1;
+    const randomItem = appData.inbox[Math.round(Math.random() * length)];
+
+    if (randomItem !== undefined) {
+        elements.unclutterInbox.randomItemContainer.innerHTML = `<article><p>${randomItem}</p></article>`;
+    } else {
+        elements.unclutterInbox.randomItemContainer.innerHTML = `<article><p>Inbox jest pusty! :)</p></article>`;
+    }
+}
+
+function runUnclutterInboxFunctionalities() {
+
+    unclutterInboxOpenButtonListener();
+    unclutterInboxCloseButtonListener();
+    unclutterInboxGetRandomItem();
+
+
+    elements.unclutterInbox.moveItemButtonsGroup.addEventListener("click", (e) => {
+
+        const randomItem = elements.unclutterInbox.randomItemContainer.querySelector("p").textContent;
+
+        if (!appData.inbox.includes(randomItem)) {
+            return;
         }
-    }
 
+        appData[e.target.dataset.list].push(randomItem);
 
-    /*document.querySelector(".inbox-paragraph").innerHTML = textAreaContent;*/
+        const inboxCopy = [...appData.inbox];
 
-    elements.editInboxButton.querySelector("span").textContent = "edit";
-
-    saveData();
+        appData.inbox = inboxCopy.filter(item => item !== randomItem);
+        console.log(appData.inbox)
+        unclutterInboxGetRandomItem();
+        saveData();
+    });
 }
+
+
+
+
+(function initializeFunctionalities() {
+    loadDataFromLocalStorage();
+    addToInboxListener();
+    addOpenListsFunctionalities();
+    addListDialogFunctionalities();
+    editTasksButtonEventListener();
+
+    runUnclutterInboxFunctionalities();
+})();
