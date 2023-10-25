@@ -224,7 +224,7 @@ function runUnclutterInboxFunctionalities() {
 }
 
 
-
+// log => console.log
 
 (function initializeFunctionalities() {
     loadDataFromLocalStorage();

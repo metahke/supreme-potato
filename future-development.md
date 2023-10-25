@@ -1,9 +1,15 @@
-# Przyszłe zmiany i pomysły
+# Rozwój aplikacji
 
-- Aktualnie funkcjonalność jest zduplikowana na taski i subtaski. Mają one takie same struktury, które można ujednolicić! (?)
+## Aktualne
+- utworzenie przycisku export / import
+- ogarnięcie zakładki "Przemyślenia" (?)
+  - *lista pozwalająca na dodawanie swoim przemyśleń w formie notatek, może coś po prostu na miarę notatnika. Możliwość dodawania folderów? Grupowania w nich notatek?
+
+## Przyszłe zmiany i pomysły
+
+- Aktualnie funkcjonalność jest zduplikowana na taski i subtaski (inbox). Mają one takie same struktury, które można ujednolicić! (?)
 - poprawić (usunąć jeśli można, zamienić) style tak, by współgrały z pico css
 - Po wykonaniu zadania przekreślić tekst i umieścić zadanie gdzieś na samym dole/ (np. po lewej stronie zadania dodać checkbox z możliwością zaznaczenia zadania jako zrobione)
-- utworzenie przycisku export / import
 
 + te z rm2
 
@@ -24,8 +30,7 @@
 ## Done
 
 ### 13.09.2023
-- podmienić na link ikonek na prywatny: https://fonts.coollabs.io/,
-
+- ikonki podmienione na bardziej prywatne rozwiązanie: https://fonts.coollabs.io/,
 
 ### 31.08.2023
 
