@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="pl">
+    <head>
+        <title>Supreme Pomodoro</title>
+        <meta charset="UTF-8" />
+
+        <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+
+        <script type="module" src="./index.js" defer></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link
+                rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"
+        />
+
+        <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">-->
+
+
+
+        <link rel="stylesheet" href="../styles.css">
+
+        <link href="https://api.fonts.coollabs.io/icon?family=Material+Icons" rel="stylesheet">
+
+
+    </head>
+    <body class="container">
+        <header>
+            <a href="../">
+                <hgroup class="center head-link">
+                    <h1>Supreme Pomodoro</h1>
+                    <h2><kbd>your badass productivity app</kbd></h2>
+                </hgroup>
+            </a>
+
+            <section>
+                <small class="center"><mark>click on item to enter full-screen mode & hold on item to mark for deletion</mark></small>
+            </section>
+
+            <div class="add-task-container">
+                <div class="flex gap">
+                    <input class="task-input-field" data-theme="dark" placeholder="Dodaj nowy projekt..." />
+                    <button class="add-task-button primary">
+                        <span class="material-icons">
+                            add
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <main>
+            <section>
+                <div class="flex gap between">
+                    <h2>Lista projektów</h2>
+                    <div class="btn-group">
+                        <button class="edit-tasks-button secondary" data-edit-mode="false">
+                            <span class="material-icons">
+                                edit
+                            </span>
+                        </button>
+                        <button class="clear-tasks-data warning">
+                            <span class="material-icons">
+                                delete_outline
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tasks"></div>
+
+            </section>
+        </main>
+    </body>
+</html>

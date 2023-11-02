@@ -8,13 +8,16 @@
     color: white;
 }
 
-.task-container, .subtask-container {
-    margin: 0 0 25px 0;
-    padding: 25px 25px 5px 25px;
+html {
+    scroll-behavior: smooth;
 }
 
 main {
     padding-top: 0!important;
+}
+
+.hide {
+    display: none;
 }
 
 dialog article {
@@ -42,17 +45,6 @@ dialog {
 .success {
     background-color: #32B826;
 }
-.icon {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    justify-self: right;
-    width: 65px;
-
-    max-width: 65px;
-    max-height: 56px;
-    align-self: center
-}
 
 .flex {
     display: flex;
@@ -63,100 +55,41 @@ dialog {
     align-items: center;
 }
 
-.gap {
-    gap: 25px;
-}
-
-.grow-1 {
-    flex-grow: 1;
-}
-
-nav li {
-    font-size: 32px;
-    font-weight: 700;
-}
-
 .between {
     justify-content: space-between;
 }
 
-
-/** testowa samowolka
-p::before {
-        content: "";
-        background: white;
-        border-radius: 1ch;
-        padding-inline: 5px;
-        margin-inline-end: 5px;
-}
-**/
-
-.button-text {
-    max-width: none;
-}
-.drag-icon {
-    font-size: 35px!important;
-    cursor: grab;
+.gap {
+    gap: 25px;
 }
 
-.task-text {
-    display: flex;
+.bottom {
+    margin-bottom: 16px;
 }
 
-dialog article:not(.subtask-container) {
+dialog article:not(.subtask) {
     background-color: #13171F;
 }
 
-.task .task-container:hover {
+.task:hover {
     cursor: pointer;
-    /*scale: 1.01;*/
     background-color:  #2A333A;
 }
 
-.subtask-container {
-    cursor: pointer;
-}
-
-dialog {
-    cursor: default;
-}
-
-.to-remove .task-container, .to-remove .subtask-container {
-    border: 1px solid white;
-    background-color: #2A333A;
-    animation: shake-animation 1s infinite
-}
-
-@keyframes shake-animation {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(5deg); }
-    50% { transform: rotate(0deg); }
-    75% { transform: rotate(-5deg); }
-    100% { transform: rotate(0deg); }
-}
-
-dialog article p:last-of-type {
-    margin-bottom: 24px;
-}
-
-p::before {
+.tasks article p::before {
     content: '\25A0';
     display: inline-block;
     margin-right: 8px;
     font-size: 12px;
 }
 
-
+.tasks article {
+    break-inside: avoid;
+}
 
 .tasks {
     column-count: 2;
     column-gap: 20px;
-}
-
-.task {
-    break-inside: avoid;
-    box-sizing: border-box;
-    width: 100%;
 }
 
 small {
@@ -171,33 +104,8 @@ small {
     text-align: center;
 }
 
-header {
-    padding-top: 50px!important;
-}
-
 hgroup {
-    padding-bottom: 50px;
-}
-
-.btn-group {
-    column-count: 2;
-}
-
-
-.task-container .grid {
-    pointer-events: none;
-}
-
-.add-subtask-button span {
-    pointer-events: none;
-}
-
-.subtask-container * {
-    pointer-events: none;
-}
-
-.clear-subtask-button * {
-    pointer-events: none;
+    padding-bottom: 1rem;
 }
 
 mark {
@@ -209,11 +117,9 @@ input:not([type="checkbox"], [type="radio"]), select, textarea {
     margin-bottom: 0;
 }
 
-
-.inactive *{
+.inactive * {
     cursor: none;
     pointer-events: none;
-
     color: grey;
 }
 
@@ -222,7 +128,7 @@ input:not([type="checkbox"], [type="radio"]), select, textarea {
 }
 
 a {
-    text-decoration: none!important;
+    text-decoration: none;
 }
 
 .head-link:hover h1 {
@@ -233,19 +139,7 @@ a {
     background-color: #d1c284;
 }
 
-
-.inbox-item .list-element:hover {
-    cursor: pointer;
-    background-color: var(--primary);
-}
-
-.button {
-    width: 100%;
-    max-height: 100%;
-    align-self: stretch;
-}
-
-
+/** inbox **/
 
 .list-element:hover {
     cursor: pointer;
@@ -256,9 +150,38 @@ a {
     pointer-events: none;
 }
 
-.list-close {
-}
-
 .list-elements article {
     background-color: #181c25!important
+}
+
+
+/** projects **/
+
+.task/*, .subtask*/ {
+    margin: 0 0 25px 0;
+    padding: 25px 25px 5px 25px;
+}
+
+.task * {
+    pointer-events: none;
+}
+
+.subtasks {
+    margin-top: 25px;
+}
+
+.drag-icon:hover {
+    cursor: grab
+}
+
+.subtasks input {
+    align-self: center;
+}
+
+.checked-subtasks p {
+    text-decoration: line-through;
+}
+
+input[checked] {
+    background-color: #A298BD;
 }

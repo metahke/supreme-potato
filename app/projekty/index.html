@@ -3,27 +3,14 @@
     <head>
         <title>Supreme Pomodoro</title>
         <meta charset="UTF-8" />
-
-        <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
-
-        <script type="module" src="./index.js" defer></script>
-
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link
-                rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"
-        />
+        <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+        <script type="module" src="./index.js" defer></script>
 
-        <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">-->
-
-
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css" />
         <link rel="stylesheet" href="../styles.css">
-
         <link href="https://api.fonts.coollabs.io/icon?family=Material+Icons" rel="stylesheet">
-
-
     </head>
     <body class="container">
         <header>
@@ -59,7 +46,7 @@
                                 edit
                             </span>
                         </button>
-                        <button class="clear-tasks-data warning">
+                        <button class="remove-selected-tasks-button warning">
                             <span class="material-icons">
                                 delete_outline
                             </span>
@@ -68,6 +55,63 @@
                 </div>
 
                 <div class="tasks"></div>
+
+
+
+                <dialog class="task-dialog" data-task-id="">
+                    <article>
+                        <!--<small class="left"><mark>double click on text to edit & hold on item to mark for deletion</mark></small>-->
+                        <button
+                                class="close contrast">
+                        </button>
+
+
+                        <h3 class="task-title editable"></h3>
+
+
+
+
+                        <!--<blockquote class="description editable">
+
+                        </blockquote>-->
+                        <div class="flex row gap bottom">
+                            <input class="subtask-input-field" placeholder="Dodaj nowe zadanie..." />
+                            <button class="add-subtask-button">
+                            <span class="material-icons">
+                                add
+                            </span>
+                            </button>
+                            <button class="remove-checked-subtasks-button warning">
+                            <span class="material-icons">
+                                delete_outline
+                            </span>
+                            </button>
+                        </div>
+
+                        <div class="container flex" role="group">
+
+                            <button aria-current="true" class="active-subtasks-tab secondary">Aktywne</button>
+
+                            <button  class="checked-subtasks-tab secondary">Odznaczone</button>
+
+                        </div>
+
+
+                        <div class="subtasks">
+                            <div class="active-subtasks">
+
+                            </div>
+                            <!--<hr />-->
+                            <div class="checked-subtasks hide">
+
+                            </div>
+                        </div>
+
+                    </article>
+                </dialog>
+
+
+
 
             </section>
         </main>

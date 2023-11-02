@@ -10,6 +10,7 @@
 - Aktualnie funkcjonalność jest zduplikowana na taski i subtaski (inbox). Mają one takie same struktury, które można ujednolicić! (?)
 - poprawić (usunąć jeśli można, zamienić) style tak, by współgrały z pico css
 - Po wykonaniu zadania przekreślić tekst i umieścić zadanie gdzieś na samym dole/ (np. po lewej stronie zadania dodać checkbox z możliwością zaznaczenia zadania jako zrobione)
+- przerzucić inptuty + buttony oraz grupy buttonów na role="group" wbudowane w picocss;
 
 + te z rm2
 
@@ -17,7 +18,9 @@
 
 - Można, by zrobić jeszcze fajniejszy podział w stylu: elements.button.addTask
 - Można by dodać zamiast innerHTML textContent w celu wyeliminowania możliwości wprowadzenia, np. elementu html,
+- zamienić input + button na forma, by wyeliminować dodatkowy addEventListener na enterze;
 
+- !important; ale ohyda, żeby do localStorage ładować zawartość (kod) HTML. Przemienić "projekty", by subtaski i taski były zapisywane do obiektu - podobnie, jak przy funkcjonalnościach "inbox": jeden dialog, w którym dane będą wyświetlane dynamicznie!!!
 
 ## Dalsze
 
@@ -26,8 +29,10 @@
 - dodanie zawsze dostępnej sekcji "Daily / Dzisiaj" na pojedyczne zadania, które nie są projektami, a są do wykonania "na już"
 
 
-
 ## Done
+
+### Październik
+- wykonane funkcjonalności w obrębie części "inbox";
 
 ### 13.09.2023
 - ikonki podmienione na bardziej prywatne rozwiązanie: https://fonts.coollabs.io/,
