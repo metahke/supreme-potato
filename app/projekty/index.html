@@ -77,15 +77,25 @@
                         <div class="flex row gap bottom">
                             <input class="subtask-input-field" placeholder="Dodaj nowe zadanie..." />
                             <button class="add-subtask-button">
-                            <span class="material-icons">
-                                add
-                            </span>
+                                <span class="material-icons">
+                                    add
+                                </span>
                             </button>
-                            <button class="remove-checked-subtasks-button warning">
-                            <span class="material-icons">
-                                delete_outline
-                            </span>
-                            </button>
+                            <div style="width: 85px">
+                                <button class="remove-checked-subtasks-button warning hide">
+                                <span class="material-icons">
+                                    delete_outline
+                                </span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="container flex" role="group">
+
+                            <button aria-current="true" class="subtasks-tab secondary">Zadania</button>
+
+                            <button  class="thoughts-log-tab secondary">Dziennik</button>
+
                         </div>
 
                         <div class="container flex" role="group">

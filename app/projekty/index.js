@@ -20,8 +20,6 @@ const elements = {
 let appData = {};
 let projectsID = 0;
 
-
-
 const loadDataFromLocalStorage = () => {
 
     if (localStorage.getItem("appData") === null) {
@@ -45,21 +43,15 @@ const loadTasksFromLocalStorage = () => {
 
     Object.keys(appData.projects).map(project => {
 
-        const { name, subtasks } = appData.projects[project];
+        const { name } = appData.projects[project];
 
-        /** dziwny bug, bo przy odświeżeniu dodają się taski, których w zasadzie nie ma. prawodpodobnie funkcjonalność zwiększania wartości projectsID jakoś błędnie działa. na razie rozwiązane przez poniższego ifa; dziwne o tyle, że wartość projectsID nie jest zapisywana do localStorage? **/
-        name !== ""
-            ? addTaskElement(name, project)
-            : undefined
-        ;
+        if (name !== "") addTaskElement(name, project)
     });
 }
 
 const validateAddTaskInput = () => {
 
-    elements.taskInputField.value
-        ? addTaskElement()
-        : undefined
+    if (elements.taskInputField.value) addTaskElement()
 }
 
 const addTaskElement = (name, project)  => {
@@ -231,50 +223,50 @@ const initializeEventListeners = () => {
         }
     })
 
+    const validateSubtasksType = (e) => {
+
+        let elementContainer, elementTab, type;
+
+        const taskId = elements.taskDialog.dataset.taskId;
+
+        if (e.target.classList.contains("checked-subtasks-tab")) {
+
+            elementContainer = elements.checkedSubtasksContainer;
+            elementTab = elements.activeSubtasksTab;
+            type = "checked";
+
+        } else if (e.target.classList.contains("active-subtasks-tab")) {
+
+            elementContainer = elements.activeSubtasksContainer;
+            elementTab = elements.checkedSubtasksTab;
+            type = "active";
+        }
 
 
-    elements.checkedSubtasksTab.addEventListener("click", () => {
+        if (!e.target.hasAttribute("aria-current")) {
 
-        if (!elements.checkedSubtasksTab.hasAttribute("aria-current")) {
+            elementTab.removeAttribute("aria-current");
 
-            elements.activeSubtasksTab.removeAttribute("aria-current");
-            elements.checkedSubtasksTab.setAttribute("aria-current", "true");
+            e.target.setAttribute("aria-current", "true");
 
             elements.activeSubtasksContainer.classList.toggle("hide");
             elements.checkedSubtasksContainer.classList.toggle("hide");
+            elements.removeCheckedSubtasksButton.classList.toggle("hide");
 
+            elementContainer.innerHTML = "";
 
-
-            elements.checkedSubtasksContainer.innerHTML = "";
-
-            const taskId = elements.taskDialog.dataset.taskId;
-
-            appData.projects[taskId].subtasks.checked.forEach(subtask => {
-                addSubtaskElement(subtask, "checked");
+            appData.projects[taskId].subtasks[type].forEach(subtask => {
+                addSubtaskElement(subtask, type);
             })
         }
+    }
 
+    elements.checkedSubtasksTab.addEventListener("click", (e) => {
+        validateSubtasksType(e);
     });
 
-    elements.activeSubtasksTab.addEventListener("click", () => {
-
-        if (!elements.activeSubtasksTab.hasAttribute("aria-current")) {
-
-            elements.checkedSubtasksTab.removeAttribute("aria-current");
-            elements.activeSubtasksTab.setAttribute("aria-current", "true");
-
-            elements.activeSubtasksContainer.classList.toggle("hide");
-            elements.checkedSubtasksContainer.classList.toggle("hide");
-
-
-            elements.activeSubtasksContainer.innerHTML = "";
-
-            const taskId = elements.taskDialog.dataset.taskId;
-
-            appData.projects[taskId].subtasks.active.forEach(subtask => {
-                addSubtaskElement(subtask, "active");
-            });
-        }
+    elements.activeSubtasksTab.addEventListener("click", (e) => {
+        validateSubtasksType(e);
     });
 
 
@@ -286,34 +278,24 @@ const initializeEventListeners = () => {
             const content = e.target.closest(".subtask-container").querySelector(".subtask-content").textContent;
             const projectID = e.target.closest("dialog").dataset.taskId;
 
-            if (e.target.checked) {
+            const currentState = e.target.checked
+                ? "active"
+                : "checked";
 
-                const activeSubtasks = [...appData.projects[projectID].subtasks.active].filter(subtask => subtask !== content);
+            const oppositeState = e.target.checked
+                ? "checked"
+                : "active";
 
-                appData.projects[projectID].subtasks.active = [...activeSubtasks]
+            const subtasks = [...appData.projects[projectID].subtasks[currentState]].filter(subtask => subtask !== content);
 
-                appData.projects[projectID].subtasks.checked.push(content)
+            appData.projects[projectID].subtasks[currentState] = [...subtasks];
+            appData.projects[projectID].subtasks[oppositeState].push(content);
 
-                e.target.closest(".subtask-container").remove();
-                saveData();
-
-            } else {
-
-                const checkedSubtasks = [...appData.projects[projectID].subtasks.checked].filter(subtask => subtask !== content);
-
-                appData.projects[projectID].subtasks.checked = [...checkedSubtasks]
-
-                appData.projects[projectID].subtasks.active.push(content)
-
-                e.target.closest(".subtask-container").remove();
-                saveData();
-            }
+            e.target.closest(".subtask-container").remove();
+            saveData();
         }
     });
 }
-
-
-
 
 
 
@@ -325,7 +307,6 @@ function initializeFunctionalities() {
 }
 
 initializeFunctionalities();
-
 
 
 
