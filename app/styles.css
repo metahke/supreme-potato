@@ -17,7 +17,7 @@ main {
 }
 
 .hide {
-    display: none;
+    display: none!important;
 }
 
 dialog article {
@@ -76,11 +76,16 @@ dialog article:not(.subtask) {
     background-color:  #2A333A;
 }
 
-.tasks article p::before {
+.tasks article p::before, .log-date::before {
     content: '\25A0';
     display: inline-block;
     margin-right: 8px;
     font-size: 12px;
+}
+
+.log-date {
+    display: flex;
+    align-items: center;
 }
 
 .tasks article {
@@ -195,4 +200,12 @@ a {
 
 input[checked] {
     background-color: #A298BD;
+}
+
+.thoughts article {
+    padding: 0;
+}
+
+blockquote {
+    background-color: #181c25
 }

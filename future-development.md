@@ -32,6 +32,7 @@
 - wykonane funkcjonalności w obrębie części "inbox";
 - przebudowa części "projekty", tak by taski i subtaski ładowały się z obiektu appData ("!important; ale ohyda, żeby do localStorage ładować zawartość (kod) HTML. Przemienić "projekty", by subtaski i taski były zapisywane do obiektu - podobnie, jak przy funkcjonalnościach "inbox": jeden dialog, w którym dane będą wyświetlane dynamicznie!!!");
 - - Po wykonaniu zadania przekreślić tekst i umieścić zadanie gdzieś na samym dole/ (np. po lewej stronie zadania dodać checkbox z możliwością zaznaczenia zadania jako zrobione);
+- Dodana opcja dodawania notatek i przemyśleń do projektów z czasem automatycznie zbieranym;
 
 ### 13.09.2023
 - ikonki podmienione na bardziej prywatne rozwiązanie: https://fonts.coollabs.io/,

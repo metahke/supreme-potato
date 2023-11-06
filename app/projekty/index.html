@@ -60,10 +60,22 @@
 
                 <dialog class="task-dialog" data-task-id="">
                     <article>
+                        <div class="container">
+
+                            <div role="group">
+                                <button  class="subtasks-tab secondary">Zadania</button>
+
+                                <button aria-current="true" class="thoughts-log-tab secondary">Dziennik</button>
+                            </div>
+
+
+
+                            <button
+                                    class="close contrast">
+                            </button>
+                        </div>
                         <!--<small class="left"><mark>double click on text to edit & hold on item to mark for deletion</mark></small>-->
-                        <button
-                                class="close contrast">
-                        </button>
+
 
 
                         <h3 class="task-title editable"></h3>
@@ -74,7 +86,7 @@
                         <!--<blockquote class="description editable">
 
                         </blockquote>-->
-                        <div class="flex row gap bottom">
+                        <div class="add-subtasks-container hide flex row gap bottom">
                             <input class="subtask-input-field" placeholder="Dodaj nowe zadanie..." />
                             <button class="add-subtask-button">
                                 <span class="material-icons">
@@ -90,24 +102,32 @@
                             </div>
                         </div>
 
-                        <div class="container flex" role="group">
-
-                            <button aria-current="true" class="subtasks-tab secondary">Zadania</button>
-
-                            <button  class="thoughts-log-tab secondary">Dziennik</button>
-
-                        </div>
-
-                        <div class="container flex" role="group">
-
-                            <button aria-current="true" class="active-subtasks-tab secondary">Aktywne</button>
-
-                            <button  class="checked-subtasks-tab secondary">Odznaczone</button>
-
+                        <div class="add-log-container  flex row gap bottom">
+                            <input class="log-input-field" placeholder="Dodaj nowe przemyślenia..." />
+                            <button class="add-log-button">
+                                <span class="material-icons">
+                                    add
+                                </span>
+                            </button>
                         </div>
 
 
-                        <div class="subtasks">
+
+
+                        <div class="hide subtasks-tabs container flex" role="group">
+
+                            <button aria-current="true" class="active-subtasks-tab secondary">
+                                Aktywne
+                            </button>
+
+                            <button  class="checked-subtasks-tab secondary">
+                                Odznaczone
+                            </button>
+
+                        </div>
+
+
+                        <div class="hide subtasks">
                             <div class="active-subtasks">
 
                             </div>
@@ -116,6 +136,12 @@
 
                             </div>
                         </div>
+
+                        <div class=" thoughts">
+                            <hr/>
+
+                        </div>
+
 
                     </article>
                 </dialog>

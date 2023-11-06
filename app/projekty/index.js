@@ -14,6 +14,16 @@ const elements = {
 
     activeSubtasksTab: document.querySelector(".active-subtasks-tab"),
     checkedSubtasksTab: document.querySelector(".checked-subtasks-tab"),
+
+    subtasksTab: document.querySelector(".subtasks-tab"),
+    subtasksTabs: document.querySelector(".subtasks-tabs"),
+    thoughtsLogTab: document.querySelector(".thoughts-log-tab"),
+    thoughtsLogContainer: document.querySelector(".thoughts"),
+
+    addLogButton: document.querySelector(".add-log-button"),
+    logInputField: document.querySelector(".log-input-field"),
+    addSubtaskContainer: document.querySelector(".add-subtasks-container"),
+    addLogContainer: document.querySelector(".add-log-container"),
 }
 
 
@@ -91,7 +101,8 @@ const addTaskElement = (name, project)  => {
             subtasks: {
                 active: [],
                 checked: []
-            }
+            },
+            log: [] // Po arrayu, czy obiekcie?
         }
     }
 
@@ -160,6 +171,96 @@ const validateAddSubtaskInput = () => {
         : undefined
 }
 
+const validateSubtasksType = (e) => {
+
+    let elementContainer, elementTab, type;
+
+    const taskId = elements.taskDialog.dataset.taskId;
+
+    if (e.target.classList.contains("checked-subtasks-tab")) {
+
+        elementContainer = elements.checkedSubtasksContainer;
+        elementTab = elements.activeSubtasksTab;
+        type = "checked";
+
+    } else if (e.target.classList.contains("active-subtasks-tab")) {
+
+        elementContainer = elements.activeSubtasksContainer;
+        elementTab = elements.checkedSubtasksTab;
+        type = "active";
+    }
+
+
+    if (!e.target.hasAttribute("aria-current")) {
+
+        elementTab.removeAttribute("aria-current");
+
+        e.target.setAttribute("aria-current", "true");
+
+        elements.activeSubtasksContainer.classList.toggle("hide");
+        elements.checkedSubtasksContainer.classList.toggle("hide");
+        elements.removeCheckedSubtasksButton.classList.toggle("hide");
+
+        elementContainer.innerHTML = "";
+
+        appData.projects[taskId].subtasks[type].forEach(subtask => {
+            addSubtaskElement(subtask, type);
+        })
+    }
+}
+
+const loadLogElements = (e) => {
+
+    const projectID = e.target.closest("dialog").dataset.taskId;
+    elements.thoughtsLogContainer.innerHTML = "";
+
+    appData.projects[projectID]["log"].forEach(log => {
+
+        const [time, content] = log;
+
+        const element = document.createElement("blockquote");
+
+        element.textContent = content;
+
+        const quoteFooter = document.createElement("footer");
+        quoteFooter.innerHTML = `<cite>${time}</cite>`;
+
+        element.append(quoteFooter);
+        elements.thoughtsLogContainer.append(element);
+    })
+
+}
+
+const addLogElement = (e) => {
+
+    const content = elements.logInputField.value;
+
+    if (content === "") return;
+
+
+    const element = document.createElement("blockquote");
+
+    element.textContent = content;
+
+    const userDate = new Date();
+    const quoteFooter = document.createElement("footer");
+    const date = userDate.toLocaleDateString().replaceAll(".", "-");
+    const time = userDate.toLocaleTimeString();
+    quoteFooter.innerHTML = `<cite>${date} ${time}</cite>`;
+
+    element.append(quoteFooter);
+    elements.thoughtsLogContainer.append(element);
+    elements.logInputField.value = "";
+
+
+
+
+    const projectID = e.target.closest("dialog").dataset.taskId;
+    const logArr = [`${date} ${time}`, content]
+
+    appData.projects[projectID]["log"].push(logArr)
+    saveData();
+}
 
 
 
@@ -223,44 +324,6 @@ const initializeEventListeners = () => {
         }
     })
 
-    const validateSubtasksType = (e) => {
-
-        let elementContainer, elementTab, type;
-
-        const taskId = elements.taskDialog.dataset.taskId;
-
-        if (e.target.classList.contains("checked-subtasks-tab")) {
-
-            elementContainer = elements.checkedSubtasksContainer;
-            elementTab = elements.activeSubtasksTab;
-            type = "checked";
-
-        } else if (e.target.classList.contains("active-subtasks-tab")) {
-
-            elementContainer = elements.activeSubtasksContainer;
-            elementTab = elements.checkedSubtasksTab;
-            type = "active";
-        }
-
-
-        if (!e.target.hasAttribute("aria-current")) {
-
-            elementTab.removeAttribute("aria-current");
-
-            e.target.setAttribute("aria-current", "true");
-
-            elements.activeSubtasksContainer.classList.toggle("hide");
-            elements.checkedSubtasksContainer.classList.toggle("hide");
-            elements.removeCheckedSubtasksButton.classList.toggle("hide");
-
-            elementContainer.innerHTML = "";
-
-            appData.projects[taskId].subtasks[type].forEach(subtask => {
-                addSubtaskElement(subtask, type);
-            })
-        }
-    }
-
     elements.checkedSubtasksTab.addEventListener("click", (e) => {
         validateSubtasksType(e);
     });
@@ -268,8 +331,6 @@ const initializeEventListeners = () => {
     elements.activeSubtasksTab.addEventListener("click", (e) => {
         validateSubtasksType(e);
     });
-
-
 
     elements.mainSubtasksContainer.addEventListener("click", (e) => {
 
@@ -295,7 +356,48 @@ const initializeEventListeners = () => {
             saveData();
         }
     });
-}
+
+
+
+
+
+    const validateLogTab = (e) => {
+
+        if (!e.target.hasAttribute("aria-current")) {
+
+            elements.thoughtsLogTab.removeAttribute("aria-current");
+            elements.subtasksTab.removeAttribute("aria-current");
+
+            e.target.setAttribute("aria-current", "true");
+
+            elements.subtasksTabs.classList.toggle("hide");
+            elements.mainSubtasksContainer.classList.toggle("hide");
+            elements.addLogContainer.classList.toggle("hide");
+            elements.addSubtaskContainer.classList.toggle("hide");
+            elements.thoughtsLogContainer.classList.toggle("hide");
+
+            loadLogElements(e);
+        }
+    };
+
+    elements.thoughtsLogTab.addEventListener("click", (e) => {
+        validateLogTab(e);
+    });
+
+    elements.subtasksTab.addEventListener("click", (e) => {
+        validateLogTab(e);
+    });
+
+
+
+    elements.addLogButton.addEventListener("click", (e) => {
+        addLogElement(e);
+    });
+
+    elements.logInputField.addEventListener("keypress", (e) => e.key === "Enter"
+        ? addLogElement(e)
+        : undefined
+    )}
 
 
 
