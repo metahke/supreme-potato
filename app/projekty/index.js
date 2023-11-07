@@ -44,8 +44,7 @@ const loadDataFromLocalStorage = () => {
     }
 }
 
-const saveData = () => {
-
+const saveDataToLocalStorage = () => {
     localStorage.setItem("appData", JSON.stringify(appData));
 }
 
@@ -55,16 +54,30 @@ const loadTasksFromLocalStorage = () => {
 
         const { name } = appData.projects[project];
 
-        if (name !== "") addTaskElement(name, project)
+        if (name !== "") addProjectElement(name, project)
     });
 }
 
-const validateAddTaskInput = () => {
+const validateProjectInputData = () => Boolean(elements.taskInputField.value);
 
-    if (elements.taskInputField.value) addTaskElement()
+
+
+const createProjectEntryInAppData = () => {
+
+    if (!validateProjectInputData()) return;
+
+    appData.projects[projectsID] = {
+        name: elements.taskInputField.value,
+        subtasks: {
+            active: [],
+            checked: []
+        },
+        log: [] // Po arrayu, czy obiekcie?
+    }
+
 }
 
-const addTaskElement = (name, project)  => {
+const addProjectElement = (name, project)  => {
 
     const element = document.createElement("article");
     element.classList.add("task", "flex", "between");
@@ -75,16 +88,14 @@ const addTaskElement = (name, project)  => {
 
     element.innerHTML = `
         <p>${value}</p>
-        <span class="drag-icon material-icons">
+        <!--<span class="drag-icon material-icons">
             drag_indicator
-        </span>
+        </span>-->
     `
 
-    /** while powinno sprawdzać, czy dany klucz istnieje, a jeśli nie, to powinno pozostawiać wolny klucz do wykonania następnej operacji**/
     while (appData.projects[projectsID]) {
         projectsID++;
     }
-
 
     element.dataset.taskId = project
         ? project
@@ -93,8 +104,6 @@ const addTaskElement = (name, project)  => {
 
     elements.mainTasksContainer.append(element);
 
-
-    /** dla wolnego klucza projectsID tworzony jest nowy obiekt konkretnego taska **/
     if (elements.taskInputField.value !== "") {
         appData.projects[projectsID] = {
             name: elements.taskInputField.value,
@@ -106,10 +115,18 @@ const addTaskElement = (name, project)  => {
         }
     }
 
-
     elements.taskInputField.value = null;
-    saveData();
+    saveDataToLocalStorage();
 }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -133,9 +150,9 @@ const addSubtaskElement = (name, state) => {
 
     element.innerHTML = `
         <p class="subtask-content">${value}</p>
-        <span class="drag-icon material-icons">
+        <!--<span class="drag-icon material-icons">
             drag_indicator
-        </span>
+        </span>-->
     `
 
     container.append(input);
@@ -161,7 +178,7 @@ const addSubtaskElement = (name, state) => {
     }
 
     elements.subtaskInputField.value = null;
-    saveData();
+    saveDataToLocalStorage();
 }
 
 const validateAddSubtaskInput = () => {
@@ -259,7 +276,7 @@ const addLogElement = (e) => {
     const logArr = [`${date} ${time}`, content]
 
     appData.projects[projectID]["log"].push(logArr)
-    saveData();
+    saveDataToLocalStorage();
 }
 
 
@@ -267,10 +284,10 @@ const addLogElement = (e) => {
 
 const initializeEventListeners = () => {
 
-    elements.addTaskButton.addEventListener("click", () => validateAddTaskInput());
+    elements.addTaskButton.addEventListener("click", createProjectEntryInAppData);
 
     elements.taskInputField.addEventListener("keydown", (e) => e.key === "Enter"
-        ? validateAddTaskInput()
+        ? validateProjectInputData()
         : undefined
     );
 
@@ -320,7 +337,7 @@ const initializeEventListeners = () => {
 
             appData.projects[projectID].subtasks.checked = [];
             elements.checkedSubtasksContainer.innerHTML = "";
-            saveData();
+            saveDataToLocalStorage();
         }
     })
 
@@ -353,7 +370,7 @@ const initializeEventListeners = () => {
             appData.projects[projectID].subtasks[oppositeState].push(content);
 
             e.target.closest(".subtask-container").remove();
-            saveData();
+            saveDataToLocalStorage();
         }
     });
 
@@ -415,7 +432,7 @@ initializeFunctionalities();
 /*const clearProjectsData = () => {
 
     appData.projects = {};
-    saveData();
+    saveDataToLocalStorage();
 }
 
 clearProjectsData();*/
