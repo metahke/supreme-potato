@@ -71,12 +71,12 @@ dialog article:not(.subtask) {
     background-color: #13171F;
 }
 
-.task:hover {
+.project:hover {
     cursor: pointer;
     background-color:  #2A333A;
 }
 
-.tasks article p::before, .log-date::before {
+.projects article p::before, .log-date::before {
     content: '\25A0';
     display: inline-block;
     margin-right: 8px;
@@ -88,11 +88,11 @@ dialog article:not(.subtask) {
     align-items: center;
 }
 
-.tasks article {
+.projects article {
     break-inside: avoid;
 }
 
-.tasks {
+.projects {
     column-count: 2;
     column-gap: 20px;
 }
@@ -162,7 +162,7 @@ a {
 
 /** projects **/
 
-.task {
+.project {
     margin: 0 0 25px 0;
     padding: 25px 25px 5px 25px;
 }
@@ -178,7 +178,7 @@ a {
 }
 
 
-.task * {
+.project * {
     pointer-events: none;
 }
 

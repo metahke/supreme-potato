@@ -1,0 +1,1 @@
+export const validateProjectInputData = (value) => Boolean(value);

@@ -1,4 +1,4 @@
-export default function addDragAndDropFunctionalities() {
+export default function dragAndDrop() {
 
     const tasksDragArea = document.querySelector(".tasks");
     const subtasksDragArea = document.querySelectorAll(".subtasks");
