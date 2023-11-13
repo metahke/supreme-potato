@@ -9,8 +9,9 @@ export const createProjectEntryInAppData = (value) => {
     appData.projects[projectID] = {
         name: value,
         maxTaskID: 0,
+        maxJournalID: 0,
         tasks: {},
-        journal: {}
+        journals: {}
     }
 
     saveDataToLocalStorage();

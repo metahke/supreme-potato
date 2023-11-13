@@ -14,22 +14,21 @@
     </head>
 
     <body class="container">
+
         <header>
             <a href="../">
                 <hgroup class="center head-link">
                     <h1>Supreme Pomodoro</h1>
-                    <h2><kbd>your badass productivity app</kbd></h2>
+                    <p>your badass productivity app</p>
                 </hgroup>
             </a>
 
-            <section>
+            <!--<section>
                 <small class="center"><mark>click on item to enter full-screen mode & hold on item to mark for deletion</mark></small>
-            </section>
+            </section>-->
 
             <form id="add-project-form" role="group">
-                <!--<label>-->
                     <input name="value" placeholder="Dodaj nowy projekt..." />
-                <!--</label>-->
                 <button type="submit" class="primary">
                         <span class="material-icons">add</span>
                 </button>
@@ -62,13 +61,9 @@
 
             <dialog class="task-dialog" data-task-id="">
                 <article>
-                    <div class="container">
+                    <div class="dialog-top">
 
-                        <div role="group">
-                            <button aria-current="true" class="subtasks-tab secondary">Zadania</button>
-
-                            <button class="thoughts-log-tab secondary">Dziennik</button>
-                        </div>
+                        <h3 class="project-title editable"></h3>
 
 
 
@@ -78,21 +73,26 @@
                     </div>
                     <!--<small class="left"><mark>double click on text to edit & hold on item to mark for deletion</mark></small>-->
 
-
-
-                    <h3 class="project-title editable"></h3>
-
-
-
-
                     <!--<blockquote class="description editable">
 
                     </blockquote>-->
                     <div class="add-subtasks-container flex row gap bottom">
+                        <div class="task-tabs" role="group">
+                            <button aria-current="true" class="tasks-tab secondary">Zadania</button>
 
+                            <button class="journals-tab secondary">Dziennik</button>
+                        </div>
                         <form id="add-project-task-form" role="group">
                             <input name="value" placeholder="Dodaj nowe zadanie..." />
-                            <button type="submit">
+                            <button type="submit" class="primary">
+                                    <span class="material-icons">
+                                        add
+                                    </span>
+                            </button>
+                        </form>
+                        <form id="add-project-journal-form" class="hide" role="group">
+                            <input name="value" placeholder="Dodaj nowe przemyślenia..." />
+                            <button type="submit" class="primary">
                                     <span class="material-icons">
                                         add
                                     </span>
@@ -108,19 +108,7 @@
                         </div>-->
                     </div>
 
-                    <!--<div class="add-log-container  flex row gap bottom">
-                        <input class="log-input-field" placeholder="Dodaj nowe przemyślenia..." />
-                        <button class="add-log-button">
-                            <span class="material-icons">
-                                add
-                            </span>
-                        </button>
-                    </div>-->
-
-
-
-
-                    <div class="subtasks-tabs container flex" role="group">
+                   <!-- <div class="subtasks-tabs container flex" role="group">
 
                         <button aria-current="true" class="active-subtasks-tab secondary">
                             Aktywne
@@ -130,21 +118,14 @@
                             Odznaczone
                         </button>
 
-                    </div>
+                    </div>-->
 
-
-                    <div class=" subtasks">
-                        <div class="active-subtasks">
-
-                        </div>
-                        <!--<hr />-->
-                        <div class="checked-subtasks hide">
-
-                        </div>
-                    </div>
-
-                    <div class="hide thoughts">
+                    <hr/>
+                    <div class="tasks-container">
                         <hr/>
+                    </div>
+
+                    <div class="hide journals-container">
 
                     </div>
 

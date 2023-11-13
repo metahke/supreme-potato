@@ -11,23 +11,23 @@ export const addProjectTaskElement = (id) => {
     const container = document.createElement("div");
     container.classList.add("flex", "subtask-container");
 
-    const input = document.createElement("input");
+  /*  const input = document.createElement("input");
     input.setAttribute("type", "checkbox")
-    input.classList.add("subtask-checkbox")
+    input.classList.add("subtask-checkbox")*/
 
     const element = document.createElement("article");
     element.classList.add("subtask", "flex", "between");
 
 
     element.innerHTML = `
-        <p class="subtask-content">${content}</p>
+        <p class="task-content">${content}</p>
         <!--<span class="drag-icon material-icons">
             drag_indicator
         </span>-->
     `
 
-    container.append(input);
+    /*container.append(input);*/
     container.append(element);
 
-    elements.mainSubtasksContainer.append(container)
+    elements.tasksContainer.append(container);
 }

@@ -182,7 +182,7 @@ a {
     pointer-events: none;
 }
 
-.subtasks {
+.tasks-container {
     margin-top: 25px;
 }
 
@@ -190,7 +190,7 @@ a {
     cursor: grab
 }
 
-.subtasks input {
+.tasks-container input {
     align-self: center;
 }
 
@@ -208,4 +208,27 @@ input[checked] {
 
 blockquote {
     background-color: #181c25
+}
+
+.dialog-top {
+    display: flex;
+
+}
+
+.dialog-top .close {
+    margin-top: 0!important;
+    margin-bottom: 15px;
+}
+
+.task-dialog article {
+    padding-top: 25px;
+}
+
+header {
+    padding-top:25px!important;
+    padding-bottom:25px!important;
+}
+
+section {
+    margin-bottom: 25px;
 }

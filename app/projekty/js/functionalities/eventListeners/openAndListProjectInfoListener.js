@@ -1,6 +1,7 @@
 import {elements} from "../../elements.js";
 import {appData} from "../../index.js";
 import {addProjectTaskElement} from "../addProjectTask/addProjectTaskElement.js";
+import {addProjectJournalElement} from "../addProjectJournal/addProjectJournalElement.js";
 
 export const openAndListProjectInfoListener = () => {
 
@@ -8,7 +9,7 @@ export const openAndListProjectInfoListener = () => {
 
         if (e.target.classList.contains("project")) {
 
-            elements.mainSubtasksContainer.innerHTML = null;
+            elements.tasksContainer.innerHTML = null;
 
             const projectId = e.target.dataset.projectId;
 
@@ -17,12 +18,10 @@ export const openAndListProjectInfoListener = () => {
 
             elements.taskDialog.querySelector(".project-title").textContent = appData.projects[projectId].name;
 
-            const tasks = appData.projects[projectId].tasks;
+            const { tasks, journals } = appData.projects[projectId];
 
-            for (const key in tasks) {
-
-                addProjectTaskElement(key)
-            }
+            for (const task in tasks) addProjectTaskElement(task)
+            for (const journal in journals) addProjectJournalElement(journal)
         }
     });
 }
