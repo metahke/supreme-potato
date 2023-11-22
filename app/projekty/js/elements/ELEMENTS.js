@@ -1,4 +1,4 @@
-export const elements = {
+export const ELEMENTS = {
 
     addProjectForm: document.querySelector("#add-project-form"),
     addProjectTaskForm: document.querySelector("#add-project-task-form"),
@@ -8,8 +8,8 @@ export const elements = {
 
     projectsContainer: document.querySelector(".projects"),
 
-    taskDialog: document.querySelector(".task-dialog"),
-
+    projectDialog: document.querySelector(".task-dialog"),
+    projectDialogCloseButton: document.querySelector(".projects-dialog-close-button"),
     tasksContainer: document.querySelector(".tasks-container"),
     journalsContainer: document.querySelector(".journals-container"),
 

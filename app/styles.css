@@ -215,7 +215,7 @@ blockquote {
 
 }
 
-.dialog-top .close {
+.dialog-top .projects-dialog-close-button {
     margin-top: 0!important;
     margin-bottom: 15px;
 }
@@ -231,4 +231,8 @@ header {
 
 section {
     margin-bottom: 25px;
+}
+
+button, button:focus {
+    border: none!important;
 }

@@ -15,7 +15,7 @@
 
 ## Ideas
 
-- Można, by zrobić jeszcze fajniejszy podział w stylu: elements.button.addTask
+- Można, by zrobić jeszcze fajniejszy podział w stylu: ELEMENTS.button.addTask
 - Można by dodać zamiast innerHTML textContent w celu wyeliminowania możliwości wprowadzenia, np. elementu html,
 - zamienić input + button na forma, by wyeliminować dodatkowy addEventListener na enterze;
 

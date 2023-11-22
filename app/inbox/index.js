@@ -4,7 +4,7 @@ const elements = {
       button: {
           close: document.querySelector(".list-close"),
       },
-        items: document.querySelector(".list-elements"),
+        items: document.querySelector(".list-ELEMENTS"),
       listContainer: document.querySelector(".list-container")
     },
     inboxItem: document.querySelector(".inbox-item"),
@@ -91,7 +91,7 @@ const editTasksModeOff = () => {
     const textAreaContent = document.querySelector(".list-textarea").value.split("\n");
 
     document.querySelector(".list-textarea-container").innerHTML = null;
-    document.querySelector(".list-elements").innerHTML = null;
+    document.querySelector(".list-ELEMENTS").innerHTML = null;
 
     console.log(elements.list.listContainer.dataset.list)
     if (elements.list.listContainer.dataset.list) {
@@ -103,7 +103,7 @@ const editTasksModeOff = () => {
 
                 appData[elements.list.listContainer.dataset.list].push(line.replace("- ", ""));
 
-                document.querySelector(".list-elements").innerHTML += `<article><p>${line.replace("- ", "")}</p></article>`;
+                document.querySelector(".list-ELEMENTS").innerHTML += `<article><p>${line.replace("- ", "")}</p></article>`;
             }
         }
     }

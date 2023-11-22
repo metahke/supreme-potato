@@ -1,9 +1,9 @@
-import {elements} from "../../elements.js";
-import {switchProjectTab} from "../switchProjectTab.js";
+import {ELEMENTS} from "../../elements/ELEMENTS.js";
+import {switchProjectTab} from "../other/switchProjectTab.js";
 
 export const switchProjectTaskTabsListener = () => {
 
-    elements.taskTabs.addEventListener("click", (e) => {
+    ELEMENTS.taskTabs.addEventListener("click", (e) => {
 
         if (!e.target.hasAttribute("aria-current")) {
 

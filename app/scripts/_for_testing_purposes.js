@@ -62,7 +62,7 @@ function closeTaskListener(task) {
 
     const taskDialog = task.querySelector(".task dialog");
 
-    taskDialog.querySelector(".close").addEventListener("click", (e) => {
+    taskDialog.querySelector(".projects-dialog-close-button").addEventListener("click", (e) => {
 
         e.stopPropagation();
         taskDialog.removeAttribute("open");

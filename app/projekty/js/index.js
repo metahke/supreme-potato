@@ -1,30 +1,20 @@
-import {loadProjectsFromLocalStorage} from "./functionalities/localStorage/loadProjectsFromLocalStorage.js";
-import {addEventListeners} from "./functionalities/addEventListeners.js";
-
-
-export let appData;
-
-const initializeAppData = () => {
-
-    appData = {
-        inbox: {},
-        maxProjectID: 0,
-        projects: {}
-    }
-}
-
-const loadDataFromLocalStorage = () => {
-
-    localStorage.getItem("appData") === null
-        ? initializeAppData()
-        : appData = JSON.parse(localStorage.getItem("appData"));
-}
-
+import {addEventListeners} from "./functionalities/other/addEventListeners.js";
+import {createProjectElement} from "./functionalities/project/createProjectElement.js";
+import {addProjectElement} from "./functionalities/project/addProjectElement.js";
+import {getProjectsData, loadAppDataFromLocalStorage} from "./data/appData.js";
 
 function initializeFunctionalities() {
 
-    loadDataFromLocalStorage();
-    loadProjectsFromLocalStorage();
+    loadAppDataFromLocalStorage();
+
+    const projects = getProjectsData();
+
+    Object.keys(projects).forEach(projectID => {
+
+        const projectContent = projects[projectID].name;
+        const element = createProjectElement(projectID, projectContent);
+        addProjectElement(element);
+    });
 
     addEventListeners();
 }

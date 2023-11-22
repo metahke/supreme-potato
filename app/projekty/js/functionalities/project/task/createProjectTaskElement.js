@@ -1,12 +1,8 @@
-import {elements} from "../../elements.js";
-import {saveDataToLocalStorage} from "../localStorage/saveDataToLocalStorage.js";
-import {appData} from "../../index.js";
+import {ELEMENTS} from "../../../elements/ELEMENTS.js";
 
-export const addProjectTaskElement = (id) => {
+export const createProjectTaskElement = (taskData) => {
 
-    const projectID = elements.taskDialog.dataset.projectId;
-    const content = appData.projects[projectID].tasks[id].name;
-
+    const {name} = taskData;
 
     const container = document.createElement("div");
     container.classList.add("flex", "subtask-container");
@@ -20,7 +16,7 @@ export const addProjectTaskElement = (id) => {
 
 
     element.innerHTML = `
-        <p class="task-content">${content}</p>
+        <p class="task-content">${name}</p>
         <!--<span class="drag-icon material-icons">
             drag_indicator
         </span>-->
@@ -29,5 +25,5 @@ export const addProjectTaskElement = (id) => {
     /*container.append(input);*/
     container.append(element);
 
-    elements.tasksContainer.append(container);
+    return container;
 }
