@@ -7,7 +7,7 @@ export const initializeProjectBuild = (projectID, projectContent) => {
 
     const projectData = createProjectEntry(projectContent);
     saveProjectData(projectID, projectData);
-x
+
     const element = createProjectElement(projectID, projectContent);
     addProjectElement(element);
 }

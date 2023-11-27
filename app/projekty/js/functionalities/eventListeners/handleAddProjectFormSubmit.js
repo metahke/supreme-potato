@@ -8,7 +8,7 @@ export const handleAddProjectFormSubmit = () => {
     ELEMENTS.addProjectForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        let value = new FormData(ELEMENTS.addProjectForm).get("value");
+        const value = new FormData(ELEMENTS.addProjectForm).get("value");
 
         if (valueNotEmpty(value)) {
 
