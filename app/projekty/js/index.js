@@ -1,4 +1,4 @@
-import {addEventListeners} from "./functionalities/other/addEventListeners.js";
+import {addEventListeners} from "./functionalities/eventListeners/addEventListeners.js";
 import {createProjectElement} from "./functionalities/project/createProjectElement.js";
 import {addProjectElement} from "./functionalities/project/addProjectElement.js";
 import {getProjectsData, loadAppDataFromLocalStorage} from "./data/appData.js";

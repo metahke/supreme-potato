@@ -1,5 +1,3 @@
-import {ELEMENTS} from "../../../elements/ELEMENTS.js";
-
 export const createProjectTaskElement = (taskData) => {
 
     const {name} = taskData;
