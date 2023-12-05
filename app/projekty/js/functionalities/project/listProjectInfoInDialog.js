@@ -13,7 +13,7 @@ export const listProjectInfoInDialog = (e) => {
 
     const projectData = getProjectData(projectId);
 
-    const { tasks, journals } = projectData;
+    const {tasks, journals} = projectData;
 
     for (const task in tasks)
         addProjectTaskElement(task)
