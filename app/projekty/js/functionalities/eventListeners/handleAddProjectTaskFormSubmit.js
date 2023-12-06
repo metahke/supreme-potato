@@ -1,6 +1,6 @@
 import {ELEMENTS} from "../../elements/ELEMENTS.js";
 import {valueNotEmpty} from "../other/valueNotEmpty.js";
-import {getCurrentProjectID} from "../../data/appData.js";
+import {getCurrentProjectID, getMaxProjectJournalID, getMaxProjectTaskID} from "../../data/appData.js";
 import {initializeProjectTaskBuild} from "../project/task/initializeProjectTaskBuild.js";
 
 export const handleAddProjectTaskFormSubmit = () => {
@@ -15,7 +15,10 @@ export const handleAddProjectTaskFormSubmit = () => {
 
             const projectID = getCurrentProjectID();
 
-            initializeProjectTaskBuild(projectID, inputValue);
+            const projectTaskID = getMaxProjectTaskID(projectID);
+
+            initializeProjectTaskBuild(projectID, projectTaskID, inputValue);
+
             ELEMENTS.addProjectTaskForm.reset();
         }
     });

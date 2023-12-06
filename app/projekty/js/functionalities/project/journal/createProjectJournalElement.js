@@ -1,7 +1,6 @@
 export const createProjectJournalElement = (projectData) => {
 
     const {name, date} = projectData
-
     const element = document.createElement("blockquote");
     element.textContent = name;
 

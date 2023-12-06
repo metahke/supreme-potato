@@ -1,11 +1,12 @@
 import {ELEMENTS} from "../../elements/ELEMENTS.js";
 import {valueNotEmpty} from "../other/valueNotEmpty.js";
 import {initializeProjectJournalBuild} from "../project/journal/initializeProjectJournalBuild.js";
-import {getCurrentProjectID} from "../../data/appData.js";
+import {getCurrentProjectID, getMaxProjectJournalID} from "../../data/appData.js";
 
 export const handleAddProjectJournalFormSubmit = () => {
 
     ELEMENTS.addProjectJournalForm.addEventListener("submit", (e) => {
+
         e.preventDefault();
 
         let inputValue = new FormData(ELEMENTS.addProjectJournalForm).get("value");
@@ -14,7 +15,10 @@ export const handleAddProjectJournalFormSubmit = () => {
 
             const projectID = getCurrentProjectID();
 
-            initializeProjectJournalBuild(projectID, inputValue);
+            const projectJournalID = getMaxProjectJournalID(projectID);
+
+            initializeProjectJournalBuild(projectID, projectJournalID, inputValue);
+
             ELEMENTS.addProjectJournalForm.reset();
         }
     });

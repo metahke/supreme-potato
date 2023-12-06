@@ -58,16 +58,16 @@ export const saveProjectData = (id, data) => {
     localStorage.setItem("appData", JSON.stringify(appData));
 }
 
-export const saveProjectTaskData = (projectID, taskID, journalData) => {
+export const saveProjectTaskData = (projectID, taskID, taskData) => {
 
-    appData.projects[projectID].journals[taskID] = journalData;
-    incrementMaxProjectTaskID();
+    appData.projects[projectID].tasks[taskID] = taskData;
+    incrementMaxProjectTaskID(projectID);
     localStorage.setItem("appData", JSON.stringify(appData));
 }
 
 export const saveProjectJournalData = (projectID, journalID, journalData) => {
 
     appData.projects[projectID].journals[journalID] = journalData;
-    incrementMaxProjectJournalID();
+    incrementMaxProjectJournalID(projectID);
     localStorage.setItem("appData", JSON.stringify(appData));
 }
