@@ -24,7 +24,6 @@ export const createProjectTaskElement = (taskID, taskData) => {
 
     const taskElement = document.createElement("article");
     taskElement.classList.add("task", "flex", "between");
-
     taskElement.dataset.taskId = taskID;
 
     taskElement.innerHTML = `
