@@ -1,1 +1,0 @@
-export const valueNotEmpty = (value) => Boolean(value);

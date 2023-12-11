@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="pl">
+<head>
+    <title>Supreme Pomodoro</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    <script type="text/javascript" src="index.js" defer></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"/>
+    <link rel="stylesheet" href="../../app/styles.css">
+    <link href="https://api.fonts.coollabs.io/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body class="container">
+    <header>
+        <a href="../../app">
+            <hgroup class="center head-link">
+                <h1>Supreme Pomodoro</h1>
+                <h2><kbd>your badass productivity app</kbd></h2>
+            </hgroup>
+        </a>
+        <section>
+            <small class="center"><mark>click on item to enter full-screen mode & hold on item to mark for deletion</mark></small>
+        </section>
+
+        <section class="add-inbox-container">
+            <div class="flex gap">
+                <input class="add-inbox-input-field" data-theme="dark" placeholder="Dodaj coś do inboxu..." />
+                <button class="add-to-inbox-button primary">
+                            <span class="material-icons">
+                                add
+                            </span>
+                </button>
+
+                <button class="unclutter-inbox-open-button button-text contrast">
+                            Uporządkuj
+                </button>
+            </div>
+        </section>
+
+        <div class="unclutter-inbox-container">
+            <dialog>
+                <article>
+                    <button
+                            class="unclutter-inbox-close-button close contrast">
+                    </button>
+
+                    <div class="random-item-container">
+                    </div>
+
+                    <div class="move-item-buttons-group" role="group">
+                        <button data-list="top10" class="primary">Top 10%</button>
+                        <button data-list="mid29" class="secondary">Mid 29%</button>
+                        <button data-list="abyss" class="secondary">Abyss</button>
+                        <button data-list="trash" class="warning">Kosz</button>
+                    </div>
+                </article>
+            </dialog>
+        </div>
+
+        <div class="inbox-item">
+            <article data-list="inbox" class="list-element inbox-article">
+                <h3>Inbox</h3>
+            </article>
+        </div>
+    </header>
+
+    <dialog data-list="" class="list-container">
+        <article>
+            <div class="flex between">
+
+                <button class="edit-list-button secondary" data-edit-mode="false">
+                     <span class="material-icons">
+                         edit
+                     </span>
+                </button>
+
+                <button class="list-close contrast">
+                    <span class="material-icons">
+                        close
+                    </span>
+                </button>
+            </div>
+
+            <div class="list-textarea-container"></div>
+
+            <div class="list-elements">
+
+            </div>
+        </article>
+    </dialog>
+
+    <main>
+        <section>
+            <div class="flex gap between">
+                <h2>Rzeczy do zrobienia</h2>
+            </div>
+
+            <div class="workflow-container grid">
+
+                <article data-list="top10" class="list-element">
+                    <h3>Top 10%</h3>
+                </article>
+
+                <article data-list="mid29" class="list-element">
+                    <h3>Mid 29%</h3>
+                </article>
+
+                <article data-list="abyss" class="list-element">
+                    <h3>Abyss</h3>
+                </article>
+
+            </div>
+        </section>
+    </main>
+</body>
+</html>
