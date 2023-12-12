@@ -49,6 +49,25 @@ export const getProjectTaskName = (projectID, taskID) => {
     return appData.projects[projectID].tasks[taskID].name;
 }
 
+export const getProjectJournalName = (projectID, journalID) => {
+    return appData.projects[projectID].journals[journalID].name;
+}
+
+export const updateProjectName = (projectID, newName) => {
+    appData.projects[projectID].name = newName;
+    updateAppData(appData);
+}
+
+export const updateProjectTaskName = (projectID, taskID, newName) => {
+    appData.projects[projectID].tasks[taskID].name = newName;
+    updateAppData(appData);
+}
+
+export const updateProjectJournalName = (projectID, journalID, newName) => {
+    appData.projects[projectID].journals[journalID].name = newName;
+    updateAppData(appData);
+}
+
 export const deleteProject = (projectID) => {
     delete appData.projects[projectID];
     updateAppData(appData);

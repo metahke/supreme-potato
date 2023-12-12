@@ -2,19 +2,30 @@ import {ELEMENTS} from "../elements/elements.js";
 import {
     deleteProjectJournal,
     getCurrentProjectID,
-    getMaxProjectJournalID,
+    getMaxProjectJournalID, getProjectJournalName,
     saveProjectJournalData
 } from "../data/appData.js";
 import {
     createProjectJournalEntry,
-    refreshJournalsList
+    renderJournals
 } from "../features/journal.js";
 
-import {valueNotEmpty} from "../helpers/helpers.js";
+import {openDialog, valueNotEmpty} from "../helpers/helpers.js";
 
 export const handleProjectJournalClick = () => {
 
     ELEMENTS.journalsContainer.addEventListener("click", (e) => {
+
+        if (e.target.classList.contains("journal-rename")) {
+
+            const journalID = e.target.closest(".journal").dataset.journalId;
+
+            ELEMENTS.itemName.value = getProjectJournalName(getCurrentProjectID(), journalID);
+            ELEMENTS.renameDialog.dataset.itemType = "journal";
+            ELEMENTS.renameDialog.dataset.journalId = journalID;
+
+            return openDialog(ELEMENTS.renameDialog);
+        }
 
         if (e.target.classList.contains("journal-delete")) {
 
@@ -22,17 +33,18 @@ export const handleProjectJournalClick = () => {
             const journalID = e.target.closest(".journal").dataset.journalId;
 
             deleteProjectJournal(projectID, journalID);
-            refreshJournalsList();
+            renderJournals();
         }
     });
 }
+
 export const handleAddProjectJournalFormSubmit = () => {
 
     ELEMENTS.addProjectJournalForm.addEventListener("submit", (e) => {
 
         e.preventDefault();
 
-        let journalName = new FormData(ELEMENTS.addProjectJournalForm).get("journal-name");
+        const journalName = new FormData(ELEMENTS.addProjectJournalForm).get("journal-name");
 
         if (valueNotEmpty(journalName)) {
 
@@ -42,7 +54,7 @@ export const handleAddProjectJournalFormSubmit = () => {
             const journalData = createProjectJournalEntry(journalName);
             saveProjectJournalData(projectID, journalID, journalData);
 
-            refreshJournalsList();
+            renderJournals();
             ELEMENTS.addProjectJournalForm.reset();
         }
     });

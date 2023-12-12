@@ -1,7 +1,7 @@
 import {ELEMENTS} from "../elements/elements.js";
 import {getCurrentProjectID, getProjectName} from "../data/appData.js";
-import {listTasks} from "./task.js";
-import {listJournals} from "./journal.js";
+import {renderTasks} from "./task.js";
+import {renderJournals} from "./journal.js";
 
 export const clearProjectDialogMainContainer = () => {
 
@@ -15,8 +15,8 @@ export const listProjectInfoInDialog = () => {
 
     ELEMENTS.projectDialogName.textContent = getProjectName(projectID);
 
-    listTasks();
-    listJournals();
+    renderTasks();
+    renderJournals();
 }
 
 export const switchProjectTab = (e) => {

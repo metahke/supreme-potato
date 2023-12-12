@@ -1,7 +1,5 @@
-import {ELEMENTS} from "../elements/elements.js";
-
 export const closeDialog = (dialogElement) =>
-    dialogElement.setAttribute("open", "false");
+    dialogElement.removeAttribute("open");
 
 export const openDialog = (dialogElement) =>
     dialogElement.setAttribute("open", "true");

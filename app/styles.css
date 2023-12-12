@@ -268,3 +268,8 @@ blockquote {
 .task {
     min-width: 100%;
 }
+
+.dropdown li:hover {
+    cursor: pointer;
+    background-color: var(--pico-dropdown-hover-background-color)!important;
+}

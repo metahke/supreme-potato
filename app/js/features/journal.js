@@ -23,6 +23,7 @@ export const createProjectJournalElement = (journalID, journalData) => {
     details.innerHTML = `
         <summary>Akcja</summary>
         <ul>
+            <li class="journal-rename">Zmień nazwę</li>
             <li class="journal-delete">Usuń</li>
         </ul>    
     `
@@ -45,14 +46,9 @@ export const createProjectJournalEntry = (value) => {
     }
 }
 
-export const refreshJournalsList = () => {
+export const renderJournals = () => {
 
     ELEMENTS.journalsContainer.innerHTML = null;
-
-    listJournals();
-}
-
-export const listJournals = () => {
 
     const projectID = getCurrentProjectID();
     const projectData = getProjectData(projectID);

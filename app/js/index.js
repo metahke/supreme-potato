@@ -1,14 +1,15 @@
 import {loadAppDataFromLocalStorage} from "./data/appData.js";
-import {listProjects} from "./features/project.js";
 import {
     handleAddProjectFormSubmit,
     handleDeleteProjectsDataButtonClick,
     handleProjectElementClick
-} from "./eventlisteners/project.js";
-import {handleAddProjectTaskFormSubmit, handleProjectTaskElementClick} from "./eventlisteners/task.js";
-import {handleAddProjectJournalFormSubmit, handleProjectJournalClick} from "./eventlisteners/journal.js";
-import {handleDialogCloseButtonClick, switchProjectTaskTabsListener} from "./eventlisteners/project-dialog.js";
-import {handleMouseRightClick} from "./eventlisteners/document.js";
+} from "./event-listeners/project.js";
+import {handleAddProjectTaskFormSubmit, handleProjectTaskElementClick} from "./event-listeners/task.js";
+import {handleAddProjectJournalFormSubmit, handleProjectJournalClick} from "./event-listeners/journal.js";
+import {handleDialogCloseButtonClick, switchProjectTaskTabsListener} from "./event-listeners/project-dialog.js";
+import {handleMouseRightClick} from "../../functionalities-playground/document.js";
+import {renderProjects} from "./features/project.js";
+import {handleCancelRenameButtonClick, handleConfirmRenameButtonClick} from "./event-listeners/rename-dialog.js";
 
 export const addEventListeners = () => {
 
@@ -27,13 +28,15 @@ export const addEventListeners = () => {
 
     switchProjectTaskTabsListener();
 
-    handleMouseRightClick();
+
+    handleConfirmRenameButtonClick();
+    handleCancelRenameButtonClick();
 }
 
 function initializeFunctionalities() {
 
     loadAppDataFromLocalStorage();
-    listProjects();
+    renderProjects();
     addEventListeners();
 }
 

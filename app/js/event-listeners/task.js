@@ -1,12 +1,18 @@
 import {ELEMENTS} from "../elements/elements.js";
-import {deleteProjectTask, getCurrentProjectID, getMaxProjectTaskID, saveProjectTaskData} from "../data/appData.js";
+import {
+    deleteProjectTask,
+    getCurrentProjectID,
+    getMaxProjectTaskID,
+    getProjectTaskName,
+    saveProjectTaskData
+} from "../data/appData.js";
 import {
     createProjectTaskEntry,
     initializeProjectTaskAccomplishment,
-    refreshTasksList
+    renderTasks
 } from "../features/task.js";
 
-import {valueNotEmpty} from "../helpers/helpers.js";
+import {openDialog, valueNotEmpty} from "../helpers/helpers.js";
 
 export const handleProjectTaskElementClick = () => {
 
@@ -17,7 +23,18 @@ export const handleProjectTaskElementClick = () => {
             const projectID = getCurrentProjectID();
             const taskID = e.target.closest(".task").dataset.taskId;
 
-            initializeProjectTaskAccomplishment(projectID, taskID)
+            return initializeProjectTaskAccomplishment(projectID, taskID);
+        }
+
+        if (e.target.classList.contains("task-rename")) {
+
+            const taskID = e.target.closest(".task").dataset.taskId;
+
+            ELEMENTS.itemName.value = getProjectTaskName(getCurrentProjectID(), taskID);
+            ELEMENTS.renameDialog.dataset.itemType = "task";
+            ELEMENTS.renameDialog.dataset.taskId = taskID;
+
+            return openDialog(ELEMENTS.renameDialog);
         }
 
         if (e.target.classList.contains("task-delete")) {
@@ -26,7 +43,7 @@ export const handleProjectTaskElementClick = () => {
             const taskID = e.target.closest(".task").dataset.taskId;
 
             deleteProjectTask(projectID, taskID);
-            refreshTasksList();
+            renderTasks();
         }
     });
 }
@@ -36,7 +53,7 @@ export const handleAddProjectTaskFormSubmit = () => {
 
         e.preventDefault();
 
-        let taskName = new FormData(ELEMENTS.addProjectTaskForm).get("task-name");
+        const taskName = new FormData(ELEMENTS.addProjectTaskForm).get("task-name");
 
         if (valueNotEmpty(taskName)) {
 
@@ -46,7 +63,7 @@ export const handleAddProjectTaskFormSubmit = () => {
             const taskData = createProjectTaskEntry(taskName);
             saveProjectTaskData(projectID, projectTaskID, taskData);
 
-            refreshTasksList();
+            renderTasks();
             ELEMENTS.addProjectTaskForm.reset();
         }
     });

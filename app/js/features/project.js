@@ -26,6 +26,7 @@ export const createProjectElement = (projectID, projectName) => {
         <details class="dropdown project-action">
             <summary>Akcja</summary>
             <ul>
+                <li class="project-rename">Zmień nazwę</li>
                 <li class="project-delete">Usuń</li>
             </ul>    
         </details>
@@ -34,7 +35,9 @@ export const createProjectElement = (projectID, projectName) => {
     return projectElement;
 }
 
-export const listProjects = () => {
+export const renderProjects = () => {
+
+    ELEMENTS.projectsContainer.innerHTML = null;
 
     const projectsData = getProjectsData();
 
@@ -45,11 +48,4 @@ export const listProjects = () => {
 
         addHTMLElement(ELEMENTS.projectsContainer, projectElement);
     });
-}
-
-export const refreshProjectsList = () => {
-
-    ELEMENTS.projectsContainer.innerHTML = null;
-
-    listProjects();
 }

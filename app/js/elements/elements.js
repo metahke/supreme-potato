@@ -17,4 +17,9 @@ export const ELEMENTS = {
         projectDialogTabs: document.querySelector(".project-dialog-tabs"),
         tasksTab: document.querySelector(".tasks-tab"),
         journalsTab: document.querySelector(".journals-tab"),
+
+    renameDialog: document.querySelector("#rename-dialog"),
+        itemName: document.querySelector("#item-name"),
+        confirmRename: document.querySelector("#confirm-rename"),
+        cancelRename: document.querySelector("#cancel-rename"),
 }

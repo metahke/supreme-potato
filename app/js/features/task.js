@@ -8,7 +8,7 @@ import {
     saveProjectJournalData,
 } from "../data/appData.js";
 
-import {createProjectJournalEntry, refreshJournalsList} from "./journal.js";
+import {createProjectJournalEntry, renderJournals} from "./journal.js";
 import {addHTMLElement} from "../helpers/helpers.js";
 
 export const createProjectTaskEntry = (taskName) => {
@@ -32,6 +32,7 @@ export const createProjectTaskElement = (taskID, taskData) => {
             <summary>Akcja</summary>
             <ul>
                 <li class="task-done">Zrobione</li>
+                <li class="task-rename">Zmień nazwę</li>
                 <li class="task-delete">Usuń</li>
             </ul>    
         </details>
@@ -40,7 +41,9 @@ export const createProjectTaskElement = (taskID, taskData) => {
     return taskElement;
 }
 
-export const listTasks = () => {
+export const renderTasks = () => {
+
+    ELEMENTS.tasksContainer.innerHTML = null;
 
     const projectID = getCurrentProjectID();
     const projectData = getProjectData(projectID);
@@ -54,13 +57,6 @@ export const listTasks = () => {
     }
 }
 
-export const refreshTasksList = () => {
-
-    ELEMENTS.tasksContainer.innerHTML = null;
-
-    listTasks();
-}
-
 // DO POPRAWY
 export const initializeProjectTaskAccomplishment = (projectID, taskID) => {
 
@@ -71,6 +67,6 @@ export const initializeProjectTaskAccomplishment = (projectID, taskID) => {
     deleteProjectTask(projectID, taskID);
     saveProjectJournalData(projectID, journalID, journalData);
 
-    refreshTasksList();
-    refreshJournalsList();
+    renderTasks();
+    renderJournals();
 };

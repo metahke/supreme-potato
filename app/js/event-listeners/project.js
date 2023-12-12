@@ -1,9 +1,15 @@
 import {ELEMENTS} from "../elements/elements.js";
 import {
     createProjectEntry,
-    refreshProjectsList
+    renderProjects
 } from "../features/project.js";
-import {deleteProject, getMaxProjectID, saveProjectData, setCurrentProjectID} from "../data/appData.js";
+import {
+    deleteProject,
+    getMaxProjectID,
+    getProjectName,
+    saveProjectData,
+    setCurrentProjectID
+} from "../data/appData.js";
 import {listProjectInfoInDialog} from "../features/project-dialog.js";
 import {clearProjectsData} from "../data/localStorage.js";
 import {openDialog, valueNotEmpty} from "../helpers/helpers.js";
@@ -17,7 +23,19 @@ export const handleProjectElementClick = () => {
             const projectID = e.target.closest(".project").dataset.projectId;
 
             deleteProject(projectID);
-            refreshProjectsList();
+            return renderProjects();
+        }
+
+        if (e.target.classList.contains("project-rename")) {
+
+            const projectID = e.target.closest(".project").dataset.projectId;
+
+            setCurrentProjectID(projectID);
+
+            ELEMENTS.itemName.value = getProjectName(projectID)
+            ELEMENTS.renameDialog.dataset.itemType = "project";
+
+            return openDialog(ELEMENTS.renameDialog);
         }
 
         if (e.target.classList.contains("project")) {
@@ -51,7 +69,7 @@ export const handleAddProjectFormSubmit = () => {
             const projectData = createProjectEntry(projectName);
             saveProjectData(projectID, projectData);
 
-            refreshProjectsList();
+            renderProjects();
             ELEMENTS.addProjectForm.reset();
         }
     });
