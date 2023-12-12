@@ -20,7 +20,7 @@ main {
     display: none!important;
 }
 
-dialog article {
+#project-dialog article {
     width: 95%;
     height: 95%;
     max-width: 95%;
@@ -67,7 +67,7 @@ dialog {
     margin-bottom: 16px;
 }
 
-dialog article:not(.subtask) {
+dialog article:not(.task, .journal) {
     background-color: #13171F;
 }
 
@@ -76,7 +76,7 @@ dialog article:not(.subtask) {
     background-color:  #2A333A;
 }
 
-.projects article p::before, .log-date::before {
+#projects article p::before, .log-date::before, .task-name::before {
     content: '\25A0';
     display: inline-block;
     margin-right: 8px;
@@ -88,14 +88,14 @@ dialog article:not(.subtask) {
     align-items: center;
 }
 
-.projects article {
+#projects article {
     break-inside: avoid;
 }
 
-.projects {
+/*#projects {
     column-count: 2;
     column-gap: 20px;
-}
+}*/
 
 small {
     display: block;
@@ -164,22 +164,34 @@ a {
 
 .project {
     margin: 0 0 25px 0;
-    padding: 25px 25px 5px 25px;
+    padding: 25px;
 }
 
-.subtask-container p {
+.project * {
+    margin-bottom: 0;
+}
+
+.project p {
+    display: flex;
+    align-items: center;
+}
+
+.task-container p {
     margin: 0;
     padding: 0;
 }
 
-.subtask-container .subtask {
+.task-container .task {
     margin: 10px;
     padding: 15px;
 }
 
-
-.project * {
+.project .project-title {
     pointer-events: none;
+}
+
+#project-dialog-close {
+    cursor: pointer;
 }
 
 .tasks-container {
@@ -187,15 +199,11 @@ a {
 }
 
 .drag-icon:hover {
-    cursor: grab
+    cursor: grab;
 }
 
 .tasks-container input {
     align-self: center;
-}
-
-.checked-subtasks p {
-    text-decoration: line-through;
 }
 
 input[checked] {
@@ -210,20 +218,6 @@ blockquote {
     background-color: #181c25
 }
 
-.dialog-top {
-    display: flex;
-
-}
-
-.dialog-top .projects-dialog-close-button {
-    margin-top: 0!important;
-    margin-bottom: 15px;
-}
-
-.task-dialog article {
-    padding-top: 25px;
-}
-
 header {
     padding-top:25px!important;
     padding-bottom:25px!important;
@@ -235,4 +229,47 @@ section {
 
 button, button:focus {
     border: none!important;
+}
+
+.dropdown {
+    min-width: 121px;
+}
+
+.task-name {
+    display: flex;
+    align-items: center;
+}
+
+.task-buttons {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+}
+
+.task-buttons button {
+    max-height: 57.5px;
+}
+
+.task, .journal {
+    margin: 10px;
+    padding: 15px;
+    overflow: visible;
+}
+
+blockquote {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.project-title {
+    width: 100%;
+}
+
+.task {
+    min-width: 100%;
+}
+
+.dropdown li:hover {
+    cursor: pointer;
+    background-color: var(--pico-dropdown-hover-background-color)!important;
 }

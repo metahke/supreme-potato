@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Strona z Aside</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .aside {
+            width: 25%; /* Dostosuj szerokość bocznego aside według własnych preferencji */
+            background-color: #f1f1f1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="aside">
+        <!-- Zawartość bocznego aside -->
+        <h2>Aside</h2>
+        <p>To jest boczny aside.</p>
+    </div>
+
+    <div class="content">
+        <!-- Zawartość głównego kontentu -->
+        <h1>Główny Kontent</h1>
+        <p>Tutaj znajduje się główny kontent strony.</p>
+    </div>
+</div>
+
+</body>
+</html>

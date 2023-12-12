@@ -3,56 +3,89 @@
     <head>
         <title>Supreme Pomodoro</title>
         <meta charset="UTF-8" />
-
-        <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" ></script>
-
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 
-        <link
-                rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"
-        />
+        <script type="module" src="js/index.js" defer></script>
 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css" />
         <link rel="stylesheet" href="./styles.css">
-
         <link href="https://api.fonts.coollabs.io/icon?family=Material+Icons" rel="stylesheet">
-
-
     </head>
+
     <body class="container">
+
         <header>
-            <a href="./">
+            <a href="../">
                 <hgroup class="center head-link">
                     <h1>Supreme Pomodoro</h1>
-                    <h2><kbd>your badass productivity app</kbd></h2>
+                    <p>your badass productivity app</p>
                 </hgroup>
             </a>
-            <small class="center"><mark>click on list to enter it</mark></small>
+
+            <form id="add-project-form" role="group">
+                    <input name="project-name" placeholder="Dodaj nowy projekt..." />
+                <button type="submit" class="primary">
+                        <span class="material-icons">add</span>
+                </button>
+            </form>
         </header>
+
         <main>
-            <section>
-                <div class="flex gap between">
-                    <h2>Czego potrzebujesz?</h2>
-                </div>
-
-                <div class="workflow-container grid">
-                    <a href="./inbox">
-                        <article class="workflow-item">
-                            <h3>Inbox</h3>
-                        </article>
-                    </a>
-
-                    <a href="./projekty">
-                        <article class="workflow-item">
-                            <h3>Projekty</h3>
-                        </article>
-                    </a>
-
-                    <article class="inactive">
-                        <h3>Przemyślenia</h3>
-                    </article>
-                </div>
+            <section class="flex gap between">
+                <h2>Lista projektów</h2>
+                <button id="delete-projects-data" class="secondary">Wyczyść wszystko</button>
             </section>
+
+            <div id="projects"></div>
+
+            <dialog id="project-dialog">
+                <article>
+                    <header>
+                        <a id="project-dialog-close" class="close"></a>
+                        <h3 class="project-title"></h3>
+                    </header>
+
+                    <div class="flex row gap bottom">
+                        <div class="project-dialog-tabs" role="group">
+                            <button aria-current="true" class="tasks-tab secondary">Zadania</button>
+                            <button class="journals-tab secondary">Dziennik</button>
+                        </div>
+
+                        <form id="add-project-task-form" role="group">
+                            <input name="task-name" placeholder="Dodaj nowe zadanie..." />
+                            <button type="submit" class="primary">
+                                    <span class="material-icons">add</span>
+                            </button>
+                        </form>
+
+                        <form id="add-project-journal-form" class="hide" role="group">
+                            <input name="journal-name" placeholder="Dodaj nowe przemyślenia..." />
+                            <button type="submit" class="primary">
+                                    <span class="material-icons">add</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <hr/>
+
+                    <div class="project-data-container">
+                        <div class="tasks-container"></div>
+                        <div class="journals-container hide"></div>
+                    </div>
+
+                </article>
+            </dialog>
+
+            <dialog id="rename-dialog">
+                <article>
+                    <textarea id="item-name"></textarea>
+                    <footer>
+                        <button id="confirm-rename" class="secondary">Zmień nazwę</button>
+                        <button id="cancel-rename" class="warning">Anuluj</button>
+                    </footer>
+                </article>
+            </dialog>
         </main>
     </body>
 </html>
